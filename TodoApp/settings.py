@@ -20,16 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-try:
-    from secrets import SECRET_KEY
-except ImportError:
-    SECRET_KEY = "fallback-key-for-dev"
+import os
+from decouple import config
 
+ENV = config("DJANGO_ENV", default="dev")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 
-ALLOWED_HOSTS = []
+if ENV == "dev":
+    DEBUG = config ("DJANGO_DEBUG", default=True, cast=bool)
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="localhost").split(",")
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split(",")
 
 
 # Application definition
@@ -78,14 +81,28 @@ WSGI_APPLICATION = 'TodoApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if ENV == "dev":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config("DB_NAME", default="mydb"),
+            'USER': config("DB_USER", default="user"),
+            'PASSWORD': config("DB_PASSWORD", default="password"),
+            'HOST': config("DB_HOST", default="localhost"),
+            'PORT': config("DB_PORT", default="5432"),
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config("DB_NAME"),
+            'USER': config("DB_USER"),
+            'PASSWORD': config("DB_PASSWORD"),
+            'HOST': config("DB_HOST"),
+            'PORT': config("DB_PORT"),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -123,6 +140,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
