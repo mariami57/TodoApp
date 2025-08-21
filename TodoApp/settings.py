@@ -37,7 +37,8 @@ else:
 
 # Application definition
 PROJECT_APPS = [
-    'tasks'
+    'tasks',
+    'common',
 ]
 INSTALLED_APPS = [
     'django.contrib.admin',
