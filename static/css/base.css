@@ -5,6 +5,11 @@
 nav {
     background-color: rgb(132, 174, 146);
     padding: 10px;
+    width: 2.5%;
+    border-radius: 15px;
+    position:relative;
+    top: 300px;
+    left: 30px;
 
 }
 
