@@ -81,6 +81,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TodoApp.wsgi.application'
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+
+]
 
 
 # Database
