@@ -1,6 +1,6 @@
 <nav class="d-flex flex-column gap-4 align-items-center justify-content-center">
      <div class="tooltip-container">
-        <a href="#">
+        <a href="{% url 'home' %}">
             <i class="fa-solid fa-house"></i>
             <span class="tooltip-text">Home</span>
         </a>
@@ -41,3 +41,4 @@
 <form style="display:none" id="logout-form" action="{% url 'logout' %}" method="post">
     {% csrf_token %}
 </form>
+

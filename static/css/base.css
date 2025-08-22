@@ -5,12 +5,17 @@
 nav {
     background-color: rgb(132, 174, 146);
     padding: 10px;
-    width: 2.5%;
+    width: 30px;
+    height: 50vh;
     border-radius: 20px;
-    position:relative;
-    top: 300px;
+    position:fixed;
+    top: 200px;
     left: 30px;
+}
 
+main {
+    margin-left: calc(30px + 30px + 10px);
+    padding-top: 20px;
 }
 
 a {
@@ -35,7 +40,7 @@ a {
     background-color: #fff;
     color: #000;
     text-align: center;
-    padding: 5px 8px;
+    padding: 5px 5px;
     border-radius: 4px;
     position: absolute;
     z-index: 1;
@@ -54,3 +59,4 @@ a {
   visibility: visible;
   opacity: 1;
 }
+
