@@ -34,3 +34,7 @@ class UserAdmin(UserAdmin):
             },
         ),
     )
+
+@admin.register
+class ProfileAdmin(admin.ModelAdmin):
+    pass

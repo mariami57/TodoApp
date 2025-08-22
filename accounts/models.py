@@ -19,3 +19,14 @@ class ToDoUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Profile(models.Model):
+    user = models.OneToOneField(ToDoUser, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
+
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}" if self.first_name and self.last_name else ''
+
