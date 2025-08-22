@@ -1,11 +1,12 @@
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 from accounts.managers import ToDoManager
 
 
 # Create your models here.
-class ToDoUser(AbstractBaseUser):
+class ToDoUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
