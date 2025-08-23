@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if not object.user.task_set.exists %}
+    {% if not task_list %}
         <h1>No tasks to show</h1>
     {% else %}
-        {% for task in object.user.task_set %}
+        {% for task in task_list %}
             <p>{{ task.name }}</p>
             <p>{{ task.description }}</p>
         {% endfor %}
