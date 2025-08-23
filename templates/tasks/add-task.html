@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="forms d-flex flex-column gap-2 justify-content-center align-items-center">
+        <h1>Add task</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button>Submit</button>
+        </form>
+    </div>
+
+
+
+{% endblock %}

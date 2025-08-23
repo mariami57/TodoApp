@@ -9,10 +9,12 @@ class TaskBaseForm(forms.ModelForm):
 
 
 class TaskCreateForm(TaskBaseForm):
-    pass
+    class Meta(TaskBaseForm.Meta):
+        exclude = ("accomplished_at", )
 
 class TaskUpdateForm(TaskBaseForm):
-    pass
+    class Meta(TaskBaseForm.Meta):
+        exclude = ("accomplished_at",)
 
 class TaskDeleteForm(TaskBaseForm):
     pass
