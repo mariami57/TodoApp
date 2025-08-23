@@ -5,7 +5,7 @@
     padding: 1rem;
 }
 
-task-card {
+.task-card {
     flex: 1 1 calc(20% - 50px);
     max-width: calc(20% - 1rem);
     border: 1px solid #ccc;

@@ -8,7 +8,7 @@
             {% for field in form %}
                 {{ field.label_tag }}
                 {% if field.errors %}
-                    <ul class="errorlist">
+                    <ul class="errorlist d-flex flex-column justify-content-center align-items-center">
                         {% for error in field.errors %}
                             <li>{{ error }}</li>
                         {% endfor %}
