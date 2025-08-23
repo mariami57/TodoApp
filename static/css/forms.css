@@ -16,7 +16,7 @@
     flex-direction:column;
     font-weight:600;
 }
-.forms form input{
+.forms form input, .forms form textarea {
     border-radius: 10px;
     border: 2px solid rgb(132, 174, 146);
 }
@@ -47,7 +47,7 @@
     outline: none;
 }
 
-.log-in{
+.log-in {
    margin-top:13%;
 }
 

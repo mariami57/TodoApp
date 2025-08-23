@@ -10,7 +10,8 @@ class TaskBaseForm(forms.ModelForm):
         exclude = ["created_at", "accomplished_at", "status", "user"]
 
         widgets = {
-            "description": forms.Textarea(attrs={"cols": 80, "rows": 4}),
+            "name": forms.TextInput(),
+            "description": forms.Textarea(attrs={"cols": 40, "rows": 4},),
         }
 
 

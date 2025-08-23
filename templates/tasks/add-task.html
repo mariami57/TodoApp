@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="forms d-flex flex-column gap-2 justify-content-center align-items-center">
+    <div class="forms log-in d-flex flex-column gap-2 justify-content-center align-items-center">
         <h1>Add task</h1>
-        <form method="post">
+        <form method="post" class="d-flex flex-column justify-content-center align-items-center">
             {% csrf_token %}
-            {{ form }}
-            <button>Submit</button>
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+            <button class="form-button">Submit</button>
         </form>
     </div>
 
