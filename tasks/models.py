@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.db import models
 
 # Create your models here.
+
+UserModel = get_user_model()
 class Task(models.Model):
 
     STATUS_CHOICES = [
@@ -14,6 +17,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     accomplished_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices = STATUS_CHOICES, default="pending")
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         if self.status == "completed" and self.accomplished_at is None:
