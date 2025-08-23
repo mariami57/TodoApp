@@ -57,6 +57,7 @@
 
 .errorlist {
     list-style:none;
+    margin:auto;
 
 }
 
@@ -66,4 +67,8 @@
     color: rgb(234, 123, 45);
     padding:5px 10px;
     margin:auto;
+}
+
+.custom-width {
+    width: 25%;
 }
