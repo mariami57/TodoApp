@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 # Create your models here.
@@ -11,5 +12,13 @@ class Task(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    accomplished_at = models.DateTimeField()
+    accomplished_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices = STATUS_CHOICES, default="pending")
+
+    def save(self, *args, **kwargs):
+        if self.status == "completed" and self.accomplished_at is None:
+            self.accomplished_at = timezone.now()
+        elif self.status =="pending":
+            self.accomplished_at = None
+
+        super().save(*args, **kwargs)

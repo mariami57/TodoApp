@@ -22,13 +22,13 @@
             </div>
         {% else %}
             <div class="tooltip-container">
-                <a href="{%  url %}">
+                <a href="{%  url 'add-task' %}">
                     <i class="fa-solid fa-circle-plus"></i>
                     <span class="tooltip-text">Add task</span>
                 </a>
             </div>
             <div class="tooltip-container">
-                <a href="#">
+                <a href="{% url 'list-tasks' %}">
                     <i class="fa-solid fa-border-all"></i>
                     <span class="tooltip-text">All tasks</span>
                 </a>
