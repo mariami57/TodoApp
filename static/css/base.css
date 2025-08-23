@@ -16,6 +16,7 @@ nav {
 main {
     margin-left: calc(30px + 30px + 10px);
     padding-top: 20px;
+        font-family: "Roboto", sans-serif;
 }
 
 a {
