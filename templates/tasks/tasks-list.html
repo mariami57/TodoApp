@@ -4,16 +4,17 @@
     {% if not task_list %}
         <h1>No tasks to show</h1>
     {% else %}
-        <div class="tasks-container d-flex justify-content-center align-items-center">
+        <div class="tasks-container d-flex justify-content-center">
              {% for task in task_list %}
                 <div class="d-flex flex-column task-card">
                     <h3>{{ task.name }}</h3>
-                    <p>Created at: {{ task.created_at }}</p>
+                    <p class="date">Created at: {{ task.created_at }}</p>
+                    <p class="status">Status: {{ task.status }}</p>
                     <p>{{ task.description }}</p>
                     {% if task.accomplished_at %}
-                         <p>{{ task.accomplished_at }}</p>
+                         <p class="date">{{ task.accomplished_at }}</p>
                     {% endif %}
-                    <p>Status: {{ task.status }}</p>
+
                 </div>
 
             {% endfor %}

@@ -12,9 +12,10 @@
             {% for task in pending_tasks %}
                 <div class="task-card">
                     <h3>{{ task.name }}</h3>
-                    <p>Created at: {{ task.created_at }}</p>
+                    <p class="date">Created at: {{ task.created_at }}</p>
+                    <p class="status">Status: {{ task.status }}</p>
                     <p>{{ task.description }}</p>
-                    <p>Status: {{ task.status }}</p>
+
                 </div>
             {% empty %}
                 <h1> No tasks to show</h1>
@@ -24,10 +25,10 @@
             {% for task in completed_tasks %}
                 <div class="task-card">
                     <h3>{{ task.name }}</h3>
-                    <p>Created at: {{ task.created_at }}</p>
+                    <p class="date">Created at: {{ task.created_at }}</p>
+                    <p class="status">Status: {{ task.status }}</p>
                     <p>{{ task.description }}</p>
-                    <p>Status: {{ task.status }}</p>
-                    <p>{{ task.accomplished_at }}</p>
+                    <p class="date">{{ task.accomplished_at }}</p>
                 </div>
             {% empty %}
                 <h1> No tasks to show</h1>
