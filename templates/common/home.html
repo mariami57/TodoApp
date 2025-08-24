@@ -9,34 +9,32 @@
         </div>
 
         <div id="pending-tasks-section">
-            {% for task in task_list %}
-                {% if task.status == "pending" %}
+            {% for task in pending_tasks %}
+
                     <h3>{{ task.name }}</h3>
                     <p>Created at: {{ task.created_at }}</p>
                     <p>{{ task.description }}</p>
                     <p>Status: {{ task.status }}</p>
-                {% endif %}
+                 </div>
             {% empty %}
+                <h1> No tasks to show</h1>
             {% endfor %}
         </div>
-
         <div id="completed-tasks-section">
-            {% for task in task_list %}
-                {% if task.status == "completed" %}
-                    <h3>{{ task.name }}</h3>
-                    <p>Created at: {{ task.created_at }}</p>
-                    <p>{{ task.description }}</p>
-                    <p>Status: {{ task.status }}</p>
-                    <p>{{ task.accomplished_at }}</p>
-                {% endif %}
+            {% for task in completed_tasks %}
+                <h3>{{ task.name }}</h3>
+                <p>Created at: {{ task.created_at }}</p>
+                <p>{{ task.description }}</p>
+                <p>Status: {{ task.status }}</p>
+                <p>{{ task.accomplished_at }}</p>
             {% empty %}
+                <h1> No tasks to show</h1>
             {% endfor %}
         </div>
 
-    </div>
 <script>
-    const pendingTasks = document.getElementbyId("pending-tasks");
-    const completedTasks = document.getElementbyId("completed-tasks");
+    const pendingTasks = document.getElementById("pending-tasks");
+    const completedTasks = document.getElementById("completed-tasks");
     const pendingTasksSection = document.getElementById("pending-tasks-section");
     const completedTasksSection = document.getElementById("completed-tasks-section");
 
