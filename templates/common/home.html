@@ -10,23 +10,25 @@
 
         <div id="pending-tasks-section">
             {% for task in pending_tasks %}
-
+                <div class="task-card">
                     <h3>{{ task.name }}</h3>
                     <p>Created at: {{ task.created_at }}</p>
                     <p>{{ task.description }}</p>
                     <p>Status: {{ task.status }}</p>
-                 </div>
+                </div>
             {% empty %}
                 <h1> No tasks to show</h1>
             {% endfor %}
         </div>
         <div id="completed-tasks-section">
             {% for task in completed_tasks %}
-                <h3>{{ task.name }}</h3>
-                <p>Created at: {{ task.created_at }}</p>
-                <p>{{ task.description }}</p>
-                <p>Status: {{ task.status }}</p>
-                <p>{{ task.accomplished_at }}</p>
+                <div class="task-card">
+                    <h3>{{ task.name }}</h3>
+                    <p>Created at: {{ task.created_at }}</p>
+                    <p>{{ task.description }}</p>
+                    <p>Status: {{ task.status }}</p>
+                    <p>{{ task.accomplished_at }}</p>
+                </div>
             {% empty %}
                 <h1> No tasks to show</h1>
             {% endfor %}
@@ -39,18 +41,18 @@
     const completedTasksSection = document.getElementById("completed-tasks-section");
 
     function showPendingTasks() {
-        pendingTasksSection.style.display = "block";
+        pendingTasksSection.style.display = "flex";
         completedTasksSection.style.display = "none";
-        pendingTasks.classList.add("active");
-        completedTasks.classList.remove("active");
+        pendingTasksSection.classList.add("active");
+        completedTasksSection.classList.remove("active");
 
     }
 
     function showCompletedTasks() {
         pendingTasksSection.style.display = "none";
-        completedTasksSection.style.display = "block";
-        pendingTasks.classList.remove("active");
-        completedTasks.classList.add("active");
+        completedTasksSection.style.display = "flex";
+        pendingTasksSection.classList.remove("active");
+        completedTasksSection.classList.add("active");
 
     }
 
