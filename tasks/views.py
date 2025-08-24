@@ -16,7 +16,7 @@ class TaskListView(ListView, LoginRequiredMixin):
         user = self.request.user
         if user.is_superuser:
             return Task.objects.all()
-        return Task.objects.filter(user=self.request.user)
+        return Task.objects.filter(user=user)
 
 
 class TaskDetailView(DetailView,  LoginRequiredMixin, UserIsCreatorMixin):

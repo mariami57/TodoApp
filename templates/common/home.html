@@ -9,12 +9,59 @@
         </div>
 
         <div id="pending-tasks-section">
+            {% for task in task_list %}
+                {% if task.status == "pending" %}
+                    <h3>{{ task.name }}</h3>
+                    <p>Created at: {{ task.created_at }}</p>
+                    <p>{{ task.description }}</p>
+                    <p>Status: {{ task.status }}</p>
+                {% endif %}
+            {% empty %}
+            {% endfor %}
         </div>
 
         <div id="completed-tasks-section">
-
+            {% for task in task_list %}
+                {% if task.status == "completed" %}
+                    <h3>{{ task.name }}</h3>
+                    <p>Created at: {{ task.created_at }}</p>
+                    <p>{{ task.description }}</p>
+                    <p>Status: {{ task.status }}</p>
+                    <p>{{ task.accomplished_at }}</p>
+                {% endif %}
+            {% empty %}
+            {% endfor %}
         </div>
 
     </div>
+<script>
+    const pendingTasks = document.getElementbyId("pending-tasks");
+    const completedTasks = document.getElementbyId("completed-tasks");
+    const pendingTasksSection = document.getElementById("pending-tasks-section");
+    const completedTasksSection = document.getElementById("completed-tasks-section");
+
+    function showPendingTasks() {
+        pendingTasksSection.style.display = "block";
+        completedTasksSection.style.display = "none";
+        pendingTasks.classList.add("active");
+        completedTasks.classList.remove("active");
+
+    }
+
+    function showCompletedTasks() {
+        pendingTasksSection.style.display = "none";
+        completedTasksSection.style.display = "block";
+        pendingTasks.classList.remove("active");
+        completedTasks.classList.add("active");
+
+    }
+
+    showPendingTasks();
+
+    pendingTasks.addEventListener('click', showPendingTasks);
+    completedTasks.addEventListener('click', showCompletedTasks);
+
+
+</script>
 
 {% endblock %}
