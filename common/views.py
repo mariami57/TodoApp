@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.views.generic import ListView
 
 from tasks.models import Task
@@ -5,8 +6,13 @@ from tasks.models import Task
 
 # Create your views here.
 class HomeView(ListView):
-    template_name = "common/home.html"
     model = Task
+    template_name = "common/home.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect("login")
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         user = self.request.user
