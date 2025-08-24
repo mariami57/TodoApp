@@ -14,10 +14,10 @@
 .task-card {
     flex: 1 1 calc(20% - 50px);
     max-width: calc(20% - 1rem);
-    border: 1px solid #ccc;
+    border: 1px solid rgb(173, 238, 217);
     border-radius: 10px;
     padding: 1rem;
-    background-color: #f9f9f9;
+    background-color: rgb(173, 238, 217);
     box-sizing: border-box;
 }
 
@@ -35,7 +35,6 @@
 }
 
 
-
 .date {
     font-size: 0.8rem;
     opacity: 0.7;
@@ -46,10 +45,28 @@
 
 .status {
     font-weight: 800;
+    font-size: 0.8rem;
 }
 
 .task-card p {
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
+}
+
+.desc {
+    position: relative;
+    padding: 0.5rem 0.8rem;
+    margin-left: 5px;
+    margin-right: 5px;
+    line-height: 1.5rem;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgb(173, 238, 217),
+        rgb(173, 238, 217) 1.5rem,
+        #998f8f 1.6rem,
+        #998f8f 1.5rem
+    );
+    font-family: "Courier New", monospace;
+    border-radius: 6px;
 }

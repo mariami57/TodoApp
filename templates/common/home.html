@@ -14,7 +14,7 @@
                     <h3>{{ task.name }}</h3>
                     <p class="date">Created at: {{ task.created_at }}</p>
                     <p class="status">Status: {{ task.status }}</p>
-                    <p>{{ task.description }}</p>
+                    <p class="desc">{{ task.description }}</p>
 
                 </div>
             {% empty %}
@@ -27,7 +27,7 @@
                     <h3>{{ task.name }}</h3>
                     <p class="date">Created at: {{ task.created_at }}</p>
                     <p class="status">Status: {{ task.status }}</p>
-                    <p>{{ task.description }}</p>
+                    <p class="desc">{{ task.description }}</p>
                     <p class="date">{{ task.accomplished_at }}</p>
                 </div>
             {% empty %}
