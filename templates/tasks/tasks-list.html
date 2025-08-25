@@ -7,6 +7,15 @@
         <div class="tasks-container d-flex justify-content-center gap-3">
              {% for task in task_list %}
                 <div class="task-card d-flex" id="task-{{ task.pk }}" onclick="this.classList.toggle('flipped')">
+                    <div class="menu-container">
+                            <details id="task-details">
+                                  <summary ></summary>
+                                  <div class="popup-menu">
+                                      <p><a href="{% url 'edit-task' pk=task.pk %}" class="times-new-roman">Edit</a></p>
+                                      <p><a href="{% url 'delete-task' pk=task.pk %}" class="times-new-roman">Delete</a></p>
+                                  </div>
+                            </details>
+                    </div>
                   <div class="task-card-inner">
                     <div class="task-card-front">
                       <h3>{{ task.name }}</h3>
@@ -104,6 +113,15 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+document.addEventListener("click", function (e){
+
+        const detailEl = document.getElementById("task-details");
+        if (detailEl && !detailEl.contains(e.target)) {
+            detailEl.removeAttribute("open")
+        }
+});
+
 </script>
 
 {% endblock %}

@@ -106,3 +106,58 @@
 .task-card-inner h3 {
   margin-top: 20px;
 }
+
+summary {
+    list-style: none;
+    cursor: pointer;
+    color: transparent;
+    position: relative;
+    width: 1em;
+    height: 1em;
+}
+
+summary::before {
+    content: "...";
+    color: black;
+    position: absolute;
+    right: -100px;
+    top: -30px;
+    font-size: 2em;
+    z-index: 1;
+}
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.popup-menu {
+    position: absolute;
+    right: -130px;
+    top: 1.5em;
+    background: rgb(241, 227, 211);
+    border: 1px solid #ddd;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 0.5em 0;
+    z-index: 500;
+    min-width: 100px;
+  }
+
+.popup-menu a {
+    display: block;
+    padding: 0.5em;
+    text-decoration: none;
+    font-style: normal;
+    font-size: 1em;
+  }
+
+.popup-menu .delete-btn {
+    background-color: transparent;
+    border:none;
+  }
+
+.popup-menu .delete-btn:hover{
+    color: rgb(224, 122, 95);
+
+  }
