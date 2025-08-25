@@ -12,6 +12,7 @@ class TaskBaseForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(),
             "description": forms.Textarea(attrs={"cols": 40, "rows": 4},),
+            "due_by": forms.DateInput(attrs={"type": "date"}),
         }
 
     def __init__(self, *args, **kwargs):
