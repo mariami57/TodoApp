@@ -4,17 +4,24 @@
     {% if not task_list %}
         <h1>No tasks to show</h1>
     {% else %}
-        <div class="tasks-container d-flex justify-content-center">
+        <div class="tasks-container d-flex justify-content-center gap-3">
              {% for task in task_list %}
-                <div class="d-flex flex-column task-card">
-                    <h3>{{ task.name }}</h3>
-                    <p class="date">Created at: {{ task.created_at }}</p>
-                    <p class="status">Status: {{ task.status }}</p>
-                    <p class="desc">{{ task.description }}</p>
-                    {% if task.accomplished_at %}
-                         <p class="date">{{ task.accomplished_at }}</p>
-                    {% endif %}
-
+                <div class="task-card d-flex" onclick="this.classList.toggle('flipped')">
+                  <div class="task-card-inner">
+                    <div class="task-card-front">
+                      <h3>{{ task.name }}</h3>
+                      <p class="date">Created at: {{ task.created_at }}</p>
+                      <p class="status">Status: {{ task.status }}</p>
+                        {% if task.accomplished_at %}
+                            <p class="date">{{ task.accomplished_at }}</p>
+                        {% else %}
+                            <p class="due-date">Due by: {{ task.due_by }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="task-card-back">
+                      <p class="desc">{{ task.description }}</p>
+                    </div>
+                  </div>
                 </div>
 
             {% endfor %}
