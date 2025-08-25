@@ -10,11 +10,17 @@
 
         <div id="pending-tasks-section">
             {% for task in pending_tasks %}
-                <div class="task-card">
-                    <h3>{{ task.name }}</h3>
-                    <p class="date">Created at: {{ task.created_at }}</p>
-                    <p class="status">Status: {{ task.status }}</p>
-                    <p class="desc">{{ task.description }}</p>
+                <div class="task-card" onclick="this.classList.toggle('flipped')">
+                    <div class="task-card-inner">
+                        <div class="task-card-front">
+                            <h3>{{ task.name }}</h3>
+                            <p class="date">Created at: {{ task.created_at }}</p>
+                            <p class="status">Status: {{ task.status }}</p>
+                        </div>
+                        <div class="task-card-back">
+                            <p class="desc">{{ task.description }}</p>
+                        </div>
+                    </div>
 
                 </div>
             {% empty %}
@@ -23,17 +29,69 @@
         </div>
         <div id="completed-tasks-section">
             {% for task in completed_tasks %}
-                <div class="task-card">
-                    <h3>{{ task.name }}</h3>
-                    <p class="date">Created at: {{ task.created_at }}</p>
-                    <p class="status">Status: {{ task.status }}</p>
-                    <p class="desc">{{ task.description }}</p>
-                    <p class="date">{{ task.accomplished_at }}</p>
+                <div class="task-card" onclick="this.classList.toggle('flipped')">
+                  <div class="task-card-inner">
+                    <div class="task-card-front">
+                      <h3>{{ task.name }}</h3>
+                      <p class="date">Created at: {{ task.created_at }}</p>
+                      <p class="status">Status: {{ task.status }}</p>
+                      <p class="date">{{ task.accomplished_at }}</p>
+                    </div>
+                    <div class="task-card-back">
+                     <div class="content-container">
+        <div class="type-tasks">
+            <a href="#" id="pending-tasks">Pending tasks</a>
+            <a href="#" id="completed-tasks">Completed tasks</a>
+        </div>
+
+        <div id="pending-tasks-section">
+            {% for task in pending_tasks %}
+                <div class="task-card" onclick="this.classList.toggle('flipped')">
+                    <div class="task-card-inner">
+                        <div class="task-card-front">
+                            <h3>{{ task.name }}</h3>
+                            <p class="date">Created at: {{ task.created_at }}</p>
+                            <p class="status">Status: {{ task.status }}</p>
+                        </div>
+                        <div class="task-card-back">
+                            <p class="desc">{{ task.description }}</p>
+                        </div>
+                    </div>
+
                 </div>
             {% empty %}
                 <h1> No tasks to show</h1>
             {% endfor %}
         </div>
+        <div id="completed-tasks-section d-flex">
+            {% for task in completed_tasks %}
+                <div class="task-card" onclick="this.classList.toggle('flipped')">
+                  <div class="task-card-inner">
+                    <div class="task-card-front">
+                      <h3>{{ task.name }}</h3>
+                      <p class="date">Created at: {{ task.created_at }}</p>
+                      <p class="status">Status: {{ task.status }}</p>
+                      <p class="date">{{ task.accomplished_at }}</p>
+                    </div>
+                    <div class="task-card-back">
+                      <p class="desc">{{ task.description }}</p>
+                    </div>
+                  </div>
+                </div>
+            {% empty %}
+                <h1> No tasks to show</h1>
+            {% endfor %}
+        </div>
+    </div>
+                      <p class="desc">{{ task.description }}</p>
+                    </div>
+                  </div>
+                </div>
+            {% empty %}
+                <h1> No tasks to show</h1>
+            {% endfor %}
+        </div>
+    </div>
 
 <script>
     const pendingTasks = document.getElementById("pending-tasks");

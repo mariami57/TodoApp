@@ -18,6 +18,7 @@ class Task(models.Model):
     accomplished_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices = STATUS_CHOICES, default="pending")
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    due_by = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.status == "completed" and self.accomplished_at is None:
