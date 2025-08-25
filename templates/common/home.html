@@ -16,6 +16,7 @@
                             <h3>{{ task.name }}</h3>
                             <p class="date">Created at: {{ task.created_at }}</p>
                             <p class="status">Status: {{ task.status }}</p>
+                            <p class="due-date">Due by: {{ task.due_by|date:"Y-m-d" }}</p>
                         </div>
                         <div class="task-card-back">
                             <p class="desc">{{ task.description }}</p>
@@ -27,6 +28,7 @@
                 <h1> No tasks to show</h1>
             {% endfor %}
         </div>
+
         <div id="completed-tasks-section">
             {% for task in completed_tasks %}
                 <div class="task-card" onclick="this.classList.toggle('flipped')">
@@ -38,42 +40,6 @@
                       <p class="date">{{ task.accomplished_at }}</p>
                     </div>
                     <div class="task-card-back">
-                     <div class="content-container">
-        <div class="type-tasks">
-            <a href="#" id="pending-tasks">Pending tasks</a>
-            <a href="#" id="completed-tasks">Completed tasks</a>
-        </div>
-
-        <div id="pending-tasks-section">
-            {% for task in pending_tasks %}
-                <div class="task-card" onclick="this.classList.toggle('flipped')">
-                    <div class="task-card-inner">
-                        <div class="task-card-front">
-                            <h3>{{ task.name }}</h3>
-                            <p class="date">Created at: {{ task.created_at }}</p>
-                            <p class="status">Status: {{ task.status }}</p>
-                        </div>
-                        <div class="task-card-back">
-                            <p class="desc">{{ task.description }}</p>
-                        </div>
-                    </div>
-
-                </div>
-            {% empty %}
-                <h1> No tasks to show</h1>
-            {% endfor %}
-        </div>
-        <div id="completed-tasks-section d-flex">
-            {% for task in completed_tasks %}
-                <div class="task-card" onclick="this.classList.toggle('flipped')">
-                  <div class="task-card-inner">
-                    <div class="task-card-front">
-                      <h3>{{ task.name }}</h3>
-                      <p class="date">Created at: {{ task.created_at }}</p>
-                      <p class="status">Status: {{ task.status }}</p>
-                      <p class="date">{{ task.accomplished_at }}</p>
-                    </div>
-                    <div class="task-card-back">
                       <p class="desc">{{ task.description }}</p>
                     </div>
                   </div>
@@ -83,15 +49,7 @@
             {% endfor %}
         </div>
     </div>
-                      <p class="desc">{{ task.description }}</p>
-                    </div>
-                  </div>
-                </div>
-            {% empty %}
-                <h1> No tasks to show</h1>
-            {% endfor %}
-        </div>
-    </div>
+
 
 <script>
     const pendingTasks = document.getElementById("pending-tasks");
@@ -119,6 +77,26 @@
 
     pendingTasks.addEventListener('click', showPendingTasks);
     completedTasks.addEventListener('click', showCompletedTasks);
+const dueDateElements = document.querySelectorAll('.due-date');
+
+dueDateElements.forEach(el => {
+    const text = el.textContent;
+    const dateStr = text.replace('Due by: ', '').trim();
+    const dueDate = new Date(dateStr);
+    const today = new Date();
+
+    const diffTime = dueDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays >= 3) {
+        el.style.color = 'green';
+    } else if (diffDays === 2){
+        el.style.color ='orange';
+    } else if (diffDays <= 1) {
+        el.style.color = 'red';
+    }
+});
+
 
 
 </script>
