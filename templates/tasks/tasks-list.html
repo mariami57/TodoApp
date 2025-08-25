@@ -59,7 +59,7 @@ document.querySelectorAll(".complete-btn").forEach(btn => {
 
         const button = this;
         const taskId = button.dataset.taskId;
-        const url = button.dataset.taskUrl;   // ✅ use Django-generated URL
+        const url = button.dataset.taskUrl;
 
         fetch(url, {
             method: "POST",
