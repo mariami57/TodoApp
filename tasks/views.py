@@ -57,13 +57,16 @@ class TaskDeleteView(DeleteView,  LoginRequiredMixin, UserIsCreatorMixin
 
 @login_required
 @require_POST
-def complete_task_ajax(request, task_id):
-    task = Task.objects.get(pk=task_id, user=request.user)
-    task.status = "Completed"
-    # task.accomplished_at = now()
-    task.save()
-    return JsonResponse({
-        "success": True,
-        "task_id": task_id,
-        "accomplished_at": task.accomplished_at.strftime("%Y-%m-%d %H:%M"),
-    })
+def complete_task_ajax(request, pk):
+    try:
+        task = Task.objects.get(pk=pk, user=request.user)
+        task.status = "completed"
+        task.accomplished_at = now()
+        task.save()
+        return JsonResponse({
+            "success": True,
+            "task_id": pk,
+            "accomplished_at": task.accomplished_at.strftime("%Y-%m-%d %H:%M"),
+        })
+    except Task.DoesNotExist:
+        return JsonResponse({"success": False, "error": "Task not found"}, status=404)

@@ -6,20 +6,21 @@
     {% else %}
         <div class="tasks-container d-flex justify-content-center gap-3">
              {% for task in task_list %}
-                <div class="task-card d-flex" onclick="this.classList.toggle('flipped')">
+                <div class="task-card d-flex" id="task-{{ task.pk }}" onclick="this.classList.toggle('flipped')">
                   <div class="task-card-inner">
                     <div class="task-card-front">
                       <h3>{{ task.name }}</h3>
                       <p class="date">Created at: {{ task.created_at }}</p>
                       <p class="status">Status: {{ task.status }}</p>
                         {% if task.accomplished_at %}
-                            <p class="date">{{ task.accomplished_at }}</p>
+                            <p class="date"> Completed at: {{ task.accomplished_at }}</p>
                         {% else %}
                             <p class="due-date">Due by: {{ task.due_by|date:"Y-m-d" }}</p>
+                            <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}" data-task-url="{% url 'complete-task' task.pk %}">
+                                Mark as Completed
+                            </button>
                         {% endif %}
-                        <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}">
-                            Mark as Completed
-                        </button>
+
                     </div>
                     <div class="task-card-back">
                       <p class="desc">{{ task.description }}</p>
@@ -52,7 +53,57 @@ dueDateElements.forEach(el => {
     }
 });
 
+document.querySelectorAll(".complete-btn").forEach(btn => {
+    btn.addEventListener("click", function(event){
+        event.stopPropagation();
 
+        const button = this;
+        const taskId = button.dataset.taskId;
+        const url = button.dataset.taskUrl;   // ✅ use Django-generated URL
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success){
+                const taskCard = button.closest(".task-card");
+                taskCard.querySelector(".status").textContent = "Status: completed";
+
+                const completedDate = document.createElement("p");
+                completedDate.classList.add("date");
+                completedDate.textContent = data.accomplished_at;
+                taskCard.querySelector(".task-card-front").appendChild(completedDate);
+
+                button.remove();
+            } else {
+                console.error("Task completion failed:", data);
+            }
+        })
+        .catch(err => {
+            console.error("Fetch error:", err);
+        });
+    });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== ""){
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies){
+            cookie = cookie.trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")){
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1 ));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 </script>
 
 {% endblock %}
