@@ -17,6 +17,9 @@
                         {% else %}
                             <p class="due-date">Due by: {{ task.due_by|date:"Y-m-d" }}</p>
                         {% endif %}
+                        <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}">
+                            Mark as Completed
+                        </button>
                     </div>
                     <div class="task-card-back">
                       <p class="desc">{{ task.description }}</p>

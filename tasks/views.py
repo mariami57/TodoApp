@@ -1,5 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.utils.timezone import now
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from common.mixins import UserIsCreatorMixin
@@ -50,3 +54,16 @@ class TaskDeleteView(DeleteView,  LoginRequiredMixin, UserIsCreatorMixin
                      ):
     model = Task
     success_url = reverse_lazy("home")
+
+@login_required
+@require_POST
+def complete_task_ajax(request, task_id):
+    task = Task.objects.get(pk=task_id, user=request.user)
+    task.status = "Completed"
+    # task.accomplished_at = now()
+    task.save()
+    return JsonResponse({
+        "success": True,
+        "task_id": task_id,
+        "accomplished_at": task.accomplished_at.strftime("%Y-%m-%d %H:%M"),
+    })
