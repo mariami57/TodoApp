@@ -7,49 +7,69 @@
             <a href="#" id="pending-tasks">Pending tasks</a>
             <a href="#" id="completed-tasks">Completed tasks</a>
         </div>
+        <div class="tasks-container d-flex justify-content-center gap-3">
+            <div id="pending-tasks-section">
+                {% for task in pending_tasks %}
+                    <div class="task-card d-flex" id="task-{{ task.pk }}" onclick="this.classList.toggle('flipped')">
+                        <div class="task-card-inner">
+                            <div class="task-card-front">
+                                <div class="menu-container">
+                                    <details id="task-details">
+                                          <summary ></summary>
+                                          <div class="popup-menu">
+                                              <p><a href="{% url 'edit-task' pk=task.pk %}" class="times-new-roman">Edit</a></p>
+                                              <p><a href="{% url 'delete-task' pk=task.pk %}" class="times-new-roman">Delete</a></p>
+                                          </div>
+                                    </details>
+                                </div>
+                                <h3>{{ task.name }}</h3>
+                                <p class="date">Created at: {{ task.created_at }}</p>
+                                <p class="status">Status: {{ task.status }}</p>
+                                <p class="due-date">Due by: {{ task.due_by|date:"Y-m-d" }}</p>
+                                 <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}" data-task-url="{% url 'complete-task' task.pk %}">
+                                    Mark as Completed
+                                </button>
+                            </div>
+                            <div class="task-card-back">
+                                <p class="desc">{{ task.description }}</p>
+                            </div>
+                        </div>
 
-        <div id="pending-tasks-section">
-            {% for task in pending_tasks %}
-                <div class="task-card d-flex" id="task-{{ task.pk }}" onclick="this.classList.toggle('flipped')">
-                    <div class="task-card-inner">
+                    </div>
+                {% empty %}
+                    <h1> No tasks to show</h1>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tasks-container d-flex justify-content-center gap-3">
+            <div id="completed-tasks-section">
+                {% for task in completed_tasks %}
+                    <div class="task-card d-flex" onclick="this.classList.toggle('flipped')">
+                      <div class="task-card-inner">
                         <div class="task-card-front">
-                            <h3>{{ task.name }}</h3>
-                            <p class="date">Created at: {{ task.created_at }}</p>
-                            <p class="status">Status: {{ task.status }}</p>
-                            <p class="due-date">Due by: {{ task.due_by|date:"Y-m-d" }}</p>
-                             <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}" data-task-url="{% url 'complete-task' task.pk %}">
-                                Mark as Completed
-                            </button>
+                          <div class="menu-container">
+                            <details id="task-details">
+                                  <summary ></summary>
+                                  <div class="popup-menu">
+                                      <p><a href="{% url 'edit-task' pk=task.pk %}" class="times-new-roman">Edit</a></p>
+                                      <p><a href="{% url 'delete-task' pk=task.pk %}" class="times-new-roman">Delete</a></p>
+                                  </div>
+                            </details>
+                          </div>
+                          <h3>{{ task.name }}</h3>
+                          <p class="date">Created at: {{ task.created_at }}</p>
+                          <p class="status">Status: {{ task.status }}</p>
+                          <p class="date">{{ task.accomplished_at }}</p>
                         </div>
                         <div class="task-card-back">
-                            <p class="desc">{{ task.description }}</p>
+                          <p class="desc">{{ task.description }}</p>
                         </div>
+                      </div>
                     </div>
-
-                </div>
-            {% empty %}
-                <h1> No tasks to show</h1>
-            {% endfor %}
-        </div>
-
-        <div id="completed-tasks-section">
-            {% for task in completed_tasks %}
-                <div class="task-card d-flex" onclick="this.classList.toggle('flipped')">
-                  <div class="task-card-inner">
-                    <div class="task-card-front">
-                      <h3>{{ task.name }}</h3>
-                      <p class="date">Created at: {{ task.created_at }}</p>
-                      <p class="status">Status: {{ task.status }}</p>
-                      <p class="date">{{ task.accomplished_at }}</p>
-                    </div>
-                    <div class="task-card-back">
-                      <p class="desc">{{ task.description }}</p>
-                    </div>
-                  </div>
-                </div>
-            {% empty %}
-                <h1> No tasks to show</h1>
-            {% endfor %}
+                {% empty %}
+                    <h1> No tasks to show</h1>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -157,6 +177,18 @@ document.addEventListener("click", function (e){
         if (detailEl && !detailEl.contains(e.target)) {
             detailEl.removeAttribute("open")
         }
+});
+
+document.querySelectorAll("#task-details").forEach(menu => {
+    menu.addEventListener("click", function (e){
+        e.stopPropagation();
+
+        const detailEl = document.getElementById();
+        if (detailEl && !detailEl.contains(e.target)) {
+            detailEl.removeAttribute("open")
+        }
+    });
+
 });
 
 </script>
