@@ -46,8 +46,9 @@
   box-sizing: border-box;
 }
 
-.task-card-front {
-  position: relative;
+.task-card-front,
+.task-card-back {
+  position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -55,24 +56,23 @@
   background-color: rgb(173, 238, 217);
   padding: 1rem;
   box-sizing: border-box;
-
+  top: 0;
+  left: 0;
 }
 
-.task-card-front * {
+.task-card-front {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-
 }
-
 
 .task-card-back {
   transform: rotateY(180deg);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
-
 
 .task-card-back .desc {
   flex: 1;
@@ -191,8 +191,8 @@ summary::before {
     text-align: center;
     font-size: 20px;
     position: absolute;
-    top: -190px;
-    left: 200px;
+    top: -185px;
+    left: 90px;
     margin-top: 5px;
 }
 
@@ -211,7 +211,7 @@ summary::before {
     position: absolute;
     z-index: 1;
     top: -170px;
-    left: 180px;
+    left: 85px;
     transform: translateX(20%);
     white-space: nowrap;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);

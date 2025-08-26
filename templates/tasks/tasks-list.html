@@ -11,7 +11,7 @@
                           <div class="task-card-inner">
                             <div class="task-card-front">
                               <div class="menu-container">
-                                <details id="task-details">
+                                <details class="task-details">
                                       <summary ></summary>
                                       <div class="popup-menu">
                                           <p><a href="{% url 'edit-task' pk=task.pk %}" class="times-new-roman">Edit</a></p>
@@ -85,7 +85,6 @@ document.querySelectorAll(".complete-btn").forEach(btn => {
         .then(data => {
             if (data.success){
                 const taskCard = button.closest(".task-card");
-                taskCard.querySelector(".status").textContent = "<i class="fa-solid fa-circle-check"></i>";
 
                 const completedDate = document.createElement("p");
                 completedDate.classList.add("date");
@@ -118,16 +117,21 @@ function getCookie(name) {
     return cookieValue;
 }
 
-document.querySelectorAll("#task-details").forEach(menu => {
+
+taskDetailsAll = document.querySelectorAll(".task-details");
+taskDetailsAll.forEach(menu => {
     menu.addEventListener("click", function (e){
         e.stopPropagation();
-
-        const detailEl = document.getElementById();
-        if (detailEl && !detailEl.contains(e.target)) {
-            detailEl.removeAttribute("open")
-        }
     });
 
+});
+
+document.addEventListener("click", function (e) {
+  taskDetailsAll.forEach(menu => {
+    if (!menu.contains(e.target)) {
+      menu.removeAttribute("open");
+    }
+  });
 });
 
 </script>
