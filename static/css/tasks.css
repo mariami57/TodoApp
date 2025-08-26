@@ -120,7 +120,7 @@ summary::before {
     content: "...";
     color: black;
     position: absolute;
-    right: -100px;
+    right: -80px;
     top: -30px;
     font-size: 2em;
     z-index: 1;
@@ -133,7 +133,7 @@ summary::before {
 
 .popup-menu {
     position: absolute;
-    right: -130px;
+    right: -11  0px;
     top: 1.5em;
     background: rgb(241, 227, 211);
     border: 1px solid #ddd;
