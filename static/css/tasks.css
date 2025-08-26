@@ -141,7 +141,7 @@ summary::before {
     color: black;
     position: fixed;
     right: 110px;
-    top: -5px;
+    top: -20px;
     font-size: 2em;
     z-index: 200000;
 }
@@ -184,3 +184,44 @@ summary::before {
 
 }
 
+.complete-btn {
+    border: none;
+    color: rgb(14, 165, 160);
+    background-color: transparent;
+    text-align: center;
+    font-size: 20px;
+    position: absolute;
+    top: -190px;
+    left: 200px;
+    margin-top: 5px;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text-completed{
+    visibility: hidden;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    top: -170px;
+    left: 180px;
+    transform: translateX(20%);
+    white-space: nowrap;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    font-size: 0.875rem;
+    border: 1px solid #ccc;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.tooltip-container:hover .tooltip-text-completed {
+    visibility: visible;
+    opacity: 1;
+}
