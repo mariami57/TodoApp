@@ -26,7 +26,7 @@
                                 <p class="date">Created at: {{ task.created_at }}</p>
                                 <p class="status">Status: {{ task.status }}</p>
                                 <p class="due-date">Due by: {{ task.due_by|date:"Y-m-d" }}</p>
-                                 <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}" data-task-url="{% url 'complete-task' task.pk %}">
+                                <button type="button" class="btn btn-success complete-btn" data-task-id="{{ task.pk }}" data-task-url="{% url 'complete-task' task.pk %}">
                                     Mark as Completed
                                 </button>
                             </div>
