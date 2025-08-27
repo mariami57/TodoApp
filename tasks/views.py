@@ -62,7 +62,7 @@ def task_delete_view(request, pk):
     task = Task.objects.get(pk=pk)
     if request.user.pk == task.user.pk:
         task.delete()
-        next_url = request.POST.get("next")
+        next_url = request.POST.get("next") or request.GET.get("next")
         if next_url:
             return redirect(next_url)
         return redirect("home")

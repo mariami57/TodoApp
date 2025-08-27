@@ -54,7 +54,7 @@
                             <details id="task-details">
                                   <summary ></summary>
                                   <div class="popup-menu">
-                                      <p><a href="{% url 'delete-task' pk=task.pk %}" class="times-new-roman">Delete</a></p>
+                                      <p><a href="{% url 'delete-task' pk=task.pk %}?#completed" class="times-new-roman">Delete</a></p>
                                   </div>
                             </details>
                           </div>
@@ -98,7 +98,13 @@
 
     }
 
-    showPendingTasks();
+    window.addEventListener("DOMContentLoaded", function() {
+    if (window.location.hash === "#completed") {
+        showCompletedTasks();
+    } else {
+        showPendingTasks();
+    }
+});
 
     pendingTasks.addEventListener('click', showPendingTasks);
     completedTasks.addEventListener('click', showCompletedTasks);
