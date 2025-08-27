@@ -34,6 +34,10 @@
   transform: rotateY(180deg);
 }
 
+.task-card-inner * {
+    text-align:center;
+}
+
 
 .task-card-back {
   position: absolute;
@@ -164,7 +168,13 @@ summary::before {
     padding: 0.5em 0;
     z-index: 1;
     min-width: 100px;
+    height: auto;
+    max-height: none;
   }
+
+.popup-menu p {
+    margin: 0;
+}
 
 .popup-menu a {
     display: block;

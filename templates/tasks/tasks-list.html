@@ -14,8 +14,17 @@
                                 <details class="task-details">
                                       <summary ></summary>
                                       <div class="popup-menu">
-                                          <p><a href="{% url 'edit-task' pk=task.pk %}" class="times-new-roman">Edit</a></p>
-                                          <p><a href="{% url 'delete-task' pk=task.pk %}" class="times-new-roman">Delete</a></p>
+                                          {% if task.status == "pending" %}
+                                            <p><a href="{% url 'edit-task' pk=task.pk %}?next={% url 'list-tasks' %}" class="times-new-roman">Edit</a></p>
+                                          {% endif %}
+
+                                          <p>
+                                            <form method="post" action="{% url 'delete-task' pk=task.pk %}" style="display:inline;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="next" value="{% url 'list-tasks' %}">
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                          </p>
                                       </div>
                                 </details>
                               </div>

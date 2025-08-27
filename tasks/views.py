@@ -44,16 +44,28 @@ class TaskCreateView(CreateView,  LoginRequiredMixin, UserIsCreatorMixin):
         return super().form_valid(form)
 
 
-class TaskUpdateView(UpdateView,  LoginRequiredMixin, UserIsCreatorMixin):
+class TaskUpdateView(LoginRequiredMixin, UserIsCreatorMixin, UpdateView):
     model = Task
     form_class = TaskUpdateForm
     template_name = "tasks/edit-task.html"
-    success_url = reverse_lazy("home")
 
-class TaskDeleteView(DeleteView,  LoginRequiredMixin, UserIsCreatorMixin
-                     ):
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+
+        return reverse_lazy("home")
+
+class TaskDeleteView(LoginRequiredMixin, UserIsCreatorMixin, DeleteView):
     model = Task
-    success_url = reverse_lazy("home")
+
+    def get_success_url(self):
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+
+        return reverse_lazy("home")
+
 
 @login_required
 @require_POST
