@@ -155,6 +155,10 @@ document.querySelectorAll(".complete-btn").forEach(btn => {
                 taskCard.querySelector(".task-card-front").appendChild(completedDate);
 
                 button.remove();
+                taskCard.remove();
+
+                const completedSection = document.getElementbyId("completed-task-section");
+                completedSection.appendChild(taskCard);
             } else {
                 console.error("Task completion failed:", data);
             }
