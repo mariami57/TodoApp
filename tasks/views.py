@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.decorators.http import require_POST
@@ -56,15 +57,17 @@ class TaskUpdateView(LoginRequiredMixin, UserIsCreatorMixin, UpdateView):
 
         return reverse_lazy("home")
 
-class TaskDeleteView(LoginRequiredMixin, UserIsCreatorMixin, DeleteView):
-    model = Task
-
-    def get_success_url(self):
-        next_url = self.request.GET.get("next")
+@login_required
+def task_delete_view(request, pk):
+    task = Task.objects.get(pk=pk)
+    if request.user.pk == task.user.pk:
+        task.delete()
+        next_url = request.POST.get("next")
         if next_url:
-            return next_url
-
-        return reverse_lazy("home")
+            return redirect(next_url)
+        return redirect("home")
+    else:
+        return HttpResponseForbidden("You are not not allowed to delete this task")
 
 
 @login_required
