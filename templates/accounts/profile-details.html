@@ -5,15 +5,13 @@
     <div class="content-container d-flex flex-column gap-3 justify-content-center align-items-center">
         <div class="header">
             <h1>Profile details</h1>
-            <details id="task-details">
-              <summary ></summary>
-              <div class="popup-menu">
-                  <p><a href="{% url 'edit-task' pk=request.user.pk %}" class="times-new-roman">Edit</a></p>
-                  <p><a href="{% url 'delete-task' pk=request.user.pk %}" class="times-new-roman">Delete</a></p>
-              </div>
-            </details>
+
         </div>
-        <div class="user-info forms d-flex flex-column gap-3 justify-content-center align-items-center">
+        <div class="user-info forms">
+            <div class="d-flex gap-2 justify-content-end align-items-end">
+                <a href="#"><i class="fa-solid fa-pen"></i></a>
+                <a href="#"><i class="fa-solid fa-trash"></i></a>
+            </div>
             <h4><b>Username:</b> {{ request.user.username }}</h4>
             <h4><b>Email:</b> {{ request.user.email }}</h4>
             <h4><b>First name:</b> {{ request.user.profile.first_name }}</h4>
@@ -22,13 +20,4 @@
 
     </div>
 
-<script>
-document.addEventListener("click", function (e){
-
-        const detailEl = document.getElementById("task-details");
-        if (detailEl && !detailEl.contains(e.target)) {
-            detailEl.removeAttribute("open")
-        }
-});
-</script>
 {% endblock %}
