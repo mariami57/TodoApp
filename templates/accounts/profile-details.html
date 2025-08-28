@@ -13,11 +13,11 @@
               </div>
             </details>
         </div>
-        <div class="user-info d-flex flex-column gap-3 justify-content-center align-items-center">
-            <h4>Username: {{ request.user.username }}</h4>
-            <h4>Email: {{ request.user.email }}</h4>
-            <h4>First name: {{ request.user.profile.first_name }}</h4>
-            <h4>Last name: {{ request.user.profile.first_name }}</h4>
+        <div class="user-info forms d-flex flex-column gap-3 justify-content-center align-items-center">
+            <h4><b>Username:</b> {{ request.user.username }}</h4>
+            <h4><b>Email:</b> {{ request.user.email }}</h4>
+            <h4><b>First name:</b> {{ request.user.profile.first_name }}</h4>
+            <h4><b>Last name:</b> {{ request.user.profile.first_name }}</h4>
         </div>
 
     </div>
