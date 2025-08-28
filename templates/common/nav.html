@@ -8,12 +8,7 @@
 
 
         {% if not user.is_authenticated %}
-            <div class="tooltip-container">
-                <a href="#">
-                    <i class="fa-solid fa-user"></i>
-                    <span class="tooltip-text">My Profile</span>
-                </a>
-            </div>
+
             <div class="tooltip-container">
                 <a href="{% url 'login' %}">
                     <i class="fa-solid fa-right-to-bracket"></i>
@@ -22,6 +17,12 @@
 
             </div>
         {% else %}
+            <div class="tooltip-container">
+                <a href="{% url 'profile-details' pk=request.user.pk %}">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="tooltip-text">My Profile</span>
+                </a>
+            </div>
             <div class="tooltip-container">
                 <a href="{%  url 'add-task' %}">
                     <i class="fa-solid fa-circle-plus"></i>

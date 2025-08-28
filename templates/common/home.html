@@ -183,13 +183,6 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-document.addEventListener("click", function (e){
-
-        const detailEl = document.getElementById("task-details");
-        if (detailEl && !detailEl.contains(e.target)) {
-            detailEl.removeAttribute("open")
-        }
-});
 
 document.querySelectorAll("#task-details").forEach(menu => {
     menu.addEventListener("click", function (e){
