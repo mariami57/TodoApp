@@ -9,8 +9,14 @@
         </div>
         <div class="user-info forms">
             <div class="d-flex gap-2 justify-content-end align-items-end">
-                <a href="#"><i class="fa-solid fa-pen"></i></a>
-                <a href="#"><i class="fa-solid fa-trash"></i></a>
+                <div class="tooltip-container">
+                    <a href="#"><i class="fa-solid fa-pen"></i></a>
+                    <span class="tooltip-text">Edit Profile</span>
+                </div>
+                <div class="tooltip-container">
+                    <a href="{% url 'profile-delete' pk=profile.pk %}"><i class="fa-solid fa-trash"></i></a>
+                    <span class="tooltip-text">Delete Profile</span>
+                </div>
             </div>
             <h4><b>Username:</b> {{ request.user.username }}</h4>
             <h4><b>Email:</b> {{ request.user.email }}</h4>

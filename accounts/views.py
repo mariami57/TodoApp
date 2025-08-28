@@ -1,10 +1,15 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
+
 from django.views.generic import CreateView, DetailView
 from accounts.forms import ToDoUserCreationForm, CustomLoginForm
 from accounts.models import Profile
 
-
+UserModel = get_user_model()
 # Create your views here.
 class RegisterView(CreateView):
     form_class = ToDoUserCreationForm
@@ -18,3 +23,15 @@ class CustomLoginView(LoginView):
 class ProfileDetailView(DetailView):
     model = Profile
     template_name = "accounts/profile-details.html"
+
+@login_required
+def profile_delete_view(request, pk):
+    user = UserModel.objects.get(pk=pk)
+    if request.user.is_authenticated and request.user.pk == request.user.pk:
+        if request.method == "POST":
+            user.delete()
+            return redirect("accounts/login.html")
+        else:
+            return HttpResponseForbidden("You are not allowed to delete this profile")
+    return redirect("profile-details.html", pk=pk)
+
