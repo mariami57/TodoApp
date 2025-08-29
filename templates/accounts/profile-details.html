@@ -11,7 +11,7 @@
             <div class="d-flex gap-2 justify-content-end align-items-center">
                 <div class="tooltip-container">
                     <form>
-                        <button type="button" class="profile-edit-button" onclick="window.location.href='{% url 'profile-update' pk=profile.user.pk %}'"><i class="fa-solid fa-pen"></i></button>
+                        <button type="button" class="profile-edit-button" onclick="window.location.href='{% url 'profile-update' pk=profile.pk %}'"><i class="fa-solid fa-pen"></i></button>
                         <span class="tooltip-text">Edit Profile</span>
                     </form>
                 </div>

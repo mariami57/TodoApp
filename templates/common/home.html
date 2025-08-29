@@ -157,7 +157,7 @@ document.querySelectorAll(".complete-btn").forEach(btn => {
                 button.remove();
                 taskCard.remove();
 
-                const completedSection = document.getElementbyId("completed-task-section");
+                const completedSection = document.getElementById("completed-tasks-section");
                 completedSection.appendChild(taskCard);
             } else {
                 console.error("Task completion failed:", data);
