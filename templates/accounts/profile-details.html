@@ -8,13 +8,18 @@
 
         </div>
         <div class="user-info forms">
-            <div class="d-flex gap-2 justify-content-end align-items-end">
+            <div class="d-flex gap-2 justify-content-end align-items-center">
                 <div class="tooltip-container">
-                    <a href="#"><i class="fa-solid fa-pen"></i></a>
-                    <span class="tooltip-text">Edit Profile</span>
+                    <form>
+                        <button type="button" class="profile-edit-button"><i class="fa-solid fa-pen"></i></button>
+                        <span class="tooltip-text">Edit Profile</span>
+                    </form>
                 </div>
                 <div class="tooltip-container">
-                    <a href="{% url 'profile-delete' pk=profile.pk %}"><i class="fa-solid fa-trash"></i></a>
+                    <form method="POST" action="{% url 'profile-delete' pk=profile.user.pk %}" class="profile-delete-button">
+                          {% csrf_token %}
+                          <button type="submit" class="profile-delete-button"><i class="fa-solid fa-trash"></i></button>
+                    </form>
                     <span class="tooltip-text">Delete Profile</span>
                 </div>
             </div>

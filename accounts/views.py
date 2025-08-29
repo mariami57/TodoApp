@@ -9,8 +9,9 @@ from django.views.generic import CreateView, DetailView
 from accounts.forms import ToDoUserCreationForm, CustomLoginForm
 from accounts.models import Profile
 
-UserModel = get_user_model()
+
 # Create your views here.
+UserModel = get_user_model()
 class RegisterView(CreateView):
     form_class = ToDoUserCreationForm
     template_name = "accounts/sign-in.html"
@@ -27,11 +28,10 @@ class ProfileDetailView(DetailView):
 @login_required
 def profile_delete_view(request, pk):
     user = UserModel.objects.get(pk=pk)
-    if request.user.is_authenticated and request.user.pk == request.user.pk:
+    if request.user.is_authenticated and request.user.pk == user.pk:
         if request.method == "POST":
             user.delete()
-            return redirect("accounts/login.html")
+            return redirect("login")
         else:
             return HttpResponseForbidden("You are not allowed to delete this profile")
-    return redirect("profile-details.html", pk=pk)
 

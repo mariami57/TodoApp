@@ -43,4 +43,13 @@
   opacity: 1;
 }
 
+.profile-delete-button{
+    background-color: transparent;
+    border: none;
+}
+
+.profile-edit-button{
+    background-color: transparent;
+    border: none;
+}
 
