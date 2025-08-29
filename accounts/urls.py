@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
-from accounts.views import RegisterView, CustomLoginView, ProfileDetailView, profile_delete_view
+from accounts.views import RegisterView, CustomLoginView, ProfileDetailView, profile_delete_view, ProfileUpdateView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='sign-in'),
@@ -11,5 +11,6 @@ urlpatterns = [
     path('<int:pk>/', include([
        path('details/', ProfileDetailView.as_view(), name='profile-details'),
        path('delete/', profile_delete_view, name='profile-delete'),
+       path('edit/', ProfileUpdateView.as_view(), name='profile-update'),
     ]))
 ]

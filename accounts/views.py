@@ -3,10 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
-from django.views.generic import CreateView, DetailView
-from accounts.forms import ToDoUserCreationForm, CustomLoginForm
+from django.views.generic import CreateView, DetailView, UpdateView
+from accounts.forms import ToDoUserCreationForm, CustomLoginForm, ProfileEditForm
 from accounts.models import Profile
 
 
@@ -24,6 +24,17 @@ class CustomLoginView(LoginView):
 class ProfileDetailView(DetailView):
     model = Profile
     template_name = "accounts/profile-details.html"
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    template_name = "accounts/edit-profile.html"
+    form_class = ProfileEditForm
+
+    def get_success_url(self):
+        return reverse('profile-details', kwargs={'pk': self.object.pk})
+
+
+
 
 @login_required
 def profile_delete_view(request, pk):

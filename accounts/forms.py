@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from accounts.models import Profile
+
 UserModel = get_user_model()
 
 class ToDoUserCreationForm(UserCreationForm):
@@ -27,3 +29,11 @@ class CustomLoginForm(AuthenticationForm):
         label="Password",
         widget=forms.PasswordInput,
     )
+
+class ProfileBaseForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ("user",)
+
+class ProfileEditForm(ProfileBaseForm):
+    pass
