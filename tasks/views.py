@@ -13,7 +13,7 @@ from tasks.models import Task
 
 
 # Create your views here.
-class TaskListView(ListView, LoginRequiredMixin):
+class TaskListView(ListView, LoginRequiredMixin, UserIsCreatorMixin):
     model = Task
     template_name = "tasks/tasks-list.html"
 
@@ -24,12 +24,12 @@ class TaskListView(ListView, LoginRequiredMixin):
         return Task.objects.filter(user=user)
 
 
-class TaskDetailView(DetailView,  LoginRequiredMixin, UserIsCreatorMixin):
+class TaskDetailView(DetailView, LoginRequiredMixin, UserIsCreatorMixin):
     model = Task
     template_name = "tasks/task-details.html"
 
 
-class TaskCreateView(CreateView,  LoginRequiredMixin, UserIsCreatorMixin):
+class TaskCreateView(CreateView, LoginRequiredMixin, UserIsCreatorMixin):
     model = Task
     form_class = TaskCreateForm
     template_name = "tasks/add-task.html"
