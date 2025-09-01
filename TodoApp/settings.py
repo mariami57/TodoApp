@@ -27,14 +27,14 @@ from decouple import config
 
 ENV = config("DJANGO_ENV", default="dev")
 
-SECRET_KEY = config("DJANGO_SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
 if ENV == "dev":
-    DEBUG = config ("DJANGO_DEBUG", default=True, cast=bool)
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="localhost").split(",")
+    DEBUG = config ("DEBUG", default=True, cast=bool)
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 else:
     DEBUG = False
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split(",")
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 CSRF_TRUSTED_ORIGINS=config('CSRF_TRUSTED_ORIGINS').split(",")
 # Application definition
