@@ -31,7 +31,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 if ENV == "dev":
     DEBUG = config ("DEBUG", default=True, cast=bool)
-    ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 else:
     DEBUG = False
     ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
