@@ -36,7 +36,7 @@ else:
     DEBUG = False
     ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split(",")
 
-
+CSRF_TRUSTED_ORIGINS=config('CSRF_TRUSTED_ORIGINS').split(",")
 # Application definition
 PROJECT_APPS = [
     'tasks',
