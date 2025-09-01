@@ -34,7 +34,9 @@ if ENV == "dev":
     ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="localhost").split(",")
 else:
     DEBUG = False
-    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split(",")
+    ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS",
+    default="localhost,127.0.0.1,mariastodooo-fkauhxahdgh0b4g0.italynorth-01.azurewebsites.net").split(
+        ",")
 
 CSRF_TRUSTED_ORIGINS=config('CSRF_TRUSTED_ORIGINS').split(",")
 # Application definition
