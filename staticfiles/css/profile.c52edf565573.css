@@ -1,0 +1,55 @@
+.user-info {
+    margin: 0;
+    line-height: 2.5rem;
+    padding: 2rem;
+}
+
+.user-info h4 {
+  margin: 0;
+  padding: 0.5rem 0;
+  width: 100%;
+  border-bottom: 5px solid rgb(103, 192, 144);
+  text-align:left;
+
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    transform: translateX(20%);
+    white-space: nowrap;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    font-size: 0.875rem;
+    border: 1px solid #ccc;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.profile-delete-button{
+    background-color: transparent;
+    border: none;
+}
+
+.profile-edit-button{
+    background-color: transparent;
+    border: none;
+}
+
