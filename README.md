@@ -25,7 +25,7 @@ A simple Django-based ToDo application with user authentication, profile managem
 
 🔒 Access Control – Only task owners can manage their tasks
 
-🛠️ Tech Stack
+## Tech Stack
 
 - Backend: Django
 
@@ -107,8 +107,7 @@ A template.env file is included in the repository – you can copy it and rename
 ## Live Demo
 
 Check out the live version here:
-<br>
-https://mariastodoo-arehdsateydzhqcx.italynorth-01.azurewebsites.net/accounts/login/
+[To do App](https://mariastodoo-arehdsateydzhqcx.italynorth-01.azurewebsites.net/accounts/login/)
   
 ## Contributing
 
