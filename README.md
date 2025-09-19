@@ -1,5 +1,5 @@
 # ToDo App
-A simple yet powerful Django-based ToDo application with user authentication, profile management, and task tracking.
+A simple Django-based ToDo application with user authentication, profile management, and task tracking.
 
 ## Features
 
@@ -48,7 +48,7 @@ static/         # Static files (CSS, JS, Images)
 
 ### 1. Clone the repository:
 <pre>
-  git clone https://github.com/your-username/todo-app.git
+  git clone https://github.com/mariami57/TodoApp.git
   cd todo-app
 </pre>
 
