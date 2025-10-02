@@ -67,7 +67,7 @@ def task_delete_view(request, pk):
             return redirect(next_url)
         return redirect("home")
     else:
-        return HttpResponseForbidden("You are not not allowed to delete this task")
+        return HttpResponseForbidden("You are not allowed to delete this task")
 
 
 @login_required
