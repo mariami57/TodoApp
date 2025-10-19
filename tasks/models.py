@@ -13,7 +13,7 @@ class Task(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     accomplished_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices = STATUS_CHOICES, default="pending")
