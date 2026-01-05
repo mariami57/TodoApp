@@ -83,31 +83,6 @@ static/         # Static files (CSS, JS, Images)
   http://127.0.0.1:8000/
 </pre>
 
-## Deployment
-This app is deployed on Azure.
-Here’s an overview of the deployment setup:
-
-○ Database in Production: (SQLite for small apps, PostgreSQL/MySQL for scalable apps)
-
-○ Static & Media Files: (Handled by Django’s collectstatic)
-
-○ Environment Variables:
-<br>
-This project uses a .env file to manage secrets and environment configuration.
-A template.env file is included in the repository – you can copy it and rename it to .env before running the project
-
-- SECRET_KEY – Django secret key
-
-- DEBUG – Set to False in production
-
-- ALLOWED_HOSTS – Your domain or IP
-
-- CSRF_TRUSTED_ORIGINS - ensures Django accepts form submissions from your deployed domains
-
-## Live Demo
-
-Check out the live version here:
-[To do App](https://mariastodoo-arehdsateydzhqcx.italynorth-01.azurewebsites.net/accounts/login/)
   
 ## Contributing
 
