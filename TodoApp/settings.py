@@ -34,11 +34,7 @@ if ENV == "dev":
     ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 else:
     DEBUG = False
-    ALLOWED_HOSTS = [
-        "todonotes-azhygteggrhfcyek.italynorth-01.azurewebsites.net",
-        ".azurewebsites.net",
-        ".reactblade.portal.azure.net",
-    ]
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 CSRF_TRUSTED_ORIGINS=config('CSRF_TRUSTED_ORIGINS').split(",")
 # Application definition
