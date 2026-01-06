@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView
 
 from common.mixins import UserIsCreatorMixin
 from tasks.forms import TaskCreateForm, TaskUpdateForm
@@ -22,11 +22,6 @@ class TaskListView(ListView, LoginRequiredMixin, UserIsCreatorMixin):
         if user.is_superuser:
             return Task.objects.all()
         return Task.objects.filter(user=user)
-
-
-class TaskDetailView(DetailView, LoginRequiredMixin, UserIsCreatorMixin):
-    model = Task
-    template_name = "tasks/task-details.html"
 
 
 class TaskCreateView(CreateView, LoginRequiredMixin, UserIsCreatorMixin):

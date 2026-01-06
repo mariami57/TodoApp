@@ -78,11 +78,6 @@
   flex-direction: column;
 }
 
-.task-card.flipped summary,
-.task-card.flipped .popup-menu {
-    display: none;
-}
-
 .task-card-back .desc {
   flex: 1;
   margin: 0;

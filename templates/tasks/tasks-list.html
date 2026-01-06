@@ -7,12 +7,12 @@
         {% else %}
             <div class="tasks-container d-flex justify-content-center gap-3">
                     {% for task in task_list %}
-                        <div class="task-card d-flex" onclick="this.classList.toggle('flipped')">
+                        <div class="task-card d-flex">
                           <div class="task-card-inner">
                             <div class="task-card-front">
                               <div class="menu-container">
                                 <details class="task-details">
-                                      <summary ></summary>
+                                      <summary></summary>
                                       <div class="popup-menu">
                                           {% if task.status == "pending" %}
                                             <p><a href="{% url 'edit-task' pk=task.pk %}?next={% url 'list-tasks' %}" class="times-new-roman">Edit</a></p>
@@ -121,7 +121,7 @@ function getCookie(name) {
 }
 
 
-taskDetailsAll = document.querySelectorAll(".task-details");
+const taskDetailsAll = document.querySelectorAll(".task-details");
 taskDetailsAll.forEach(menu => {
     menu.addEventListener("click", function (e){
         e.stopPropagation();

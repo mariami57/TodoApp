@@ -1,0 +1,63 @@
+.background {
+    background-color:rgb(250, 255, 202);
+}
+
+nav {
+    background-color: rgb(132, 174, 146);
+    padding: 10px;
+    width: 30px;
+    height: 50vh;
+    border-radius: 20px;
+    position:fixed;
+    top: 200px;
+    left: 30px;
+}
+
+main {
+    margin-left: calc(30px + 30px + 10px);
+    padding-top: 20px;
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.type-tasks:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    transform: translateX(20%);
+    white-space: nowrap;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    font-size: 0.875rem;
+    border: 1px solid #ccc;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
