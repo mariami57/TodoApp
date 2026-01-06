@@ -3,11 +3,11 @@
 {% block content %}
     <div class="content-container">
         {% if not task_list %}
-            <h1>No tasks to show</h1>
+            <h1 class="text-center">No tasks to show</h1>
         {% else %}
-            <div class="tasks-container d-flex justify-content-center gap-3">
+            <div class="tasks-container d-flex justify-content-center align-content-center gap-3">
                     {% for task in task_list %}
-                        <div class="task-card d-flex">
+                        <div class="task-card d-flex" onclick="this.classList.toggle('flipped')">
                           <div class="task-card-inner">
                             <div class="task-card-front">
                               <div class="menu-container">
@@ -42,8 +42,6 @@
                             </div>
                           </div>
                         </div>
-                    {% empty %}
-                        <h1> No tasks to show</h1>
                     {% endfor %}
             </div>
         </div>
@@ -74,6 +72,9 @@ document.querySelectorAll(".complete-btn").forEach(btn => {
         event.stopPropagation();
 
         const button = this;
+        const taskCard = button.closest(".task-card");
+        const statusEl = taskCard.querySelector(".status");
+        const dueDateEl = taskCard.querySelector(".due-date");
         const taskId = button.dataset.taskId;
         const url = button.dataset.taskUrl;
 
@@ -87,12 +88,16 @@ document.querySelectorAll(".complete-btn").forEach(btn => {
         .then(response => response.json())
         .then(data => {
             if (data.success){
-                const taskCard = button.closest(".task-card");
+                statusEl.textContent = "Status: completed";
+                if (dueDateEl) dueDateEl.remove();
 
-                const completedDate = document.createElement("p");
-                completedDate.classList.add("date");
-                completedDate.textContent = data.accomplished_at;
-                taskCard.querySelector(".task-card-front").appendChild(completedDate);
+                if(data.accomplished_at){
+                   const completedDate = document.createElement("p");
+                    completedDate.classList.add("date");
+                    completedDate.textContent = `Completed at: ${data.accomplished_at}`;
+                    taskCard.querySelector(".task-card-front").appendChild(completedDate);
+                }
+
 
                 button.remove();
             } else {

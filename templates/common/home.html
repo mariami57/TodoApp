@@ -40,7 +40,7 @@
 
                     </div>
                 {% empty %}
-                    <h1> No tasks to show</h1>
+                    <h1 class="text-center"> No tasks to show</h1>
                 {% endfor %}
             </div>
         </div>
@@ -61,7 +61,7 @@
                           <h3>{{ task.name }}</h3>
                           <p class="date">Created at: {{ task.created_at }}</p>
                           <p class="status">Status: {{ task.status }}</p>
-                          <p class="date">{{ task.accomplished_at }}</p>
+                          <p class="date">Completed at: {{ task.accomplished_at }}</p>
                         </div>
                         <div class="task-card-back">
                           <p class="desc">{{ task.description }}</p>
