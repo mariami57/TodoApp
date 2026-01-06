@@ -34,6 +34,10 @@ if ENV == "dev":
     ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 else:
     DEBUG = False
+    import os
+
+    print("ALLOWED_HOSTS at runtime:", os.environ.get("ALLOWED_HOSTS"))
+
     ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 CSRF_TRUSTED_ORIGINS=config('CSRF_TRUSTED_ORIGINS').split(",")
