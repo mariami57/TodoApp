@@ -98,6 +98,32 @@ Contributions are welcome! To contribute:
 
  - Open a Pull Request
 
+## Deployment
+This app is deployed on Azure.
+Here’s an overview of the deployment setup:
+
+○ Database in Production: SQLite
+
+○ Static & Media Files: collected by Django’s collectstatic and served by WhiteNoise
+
+○ Environment Variables:
+<br>
+This project uses a .env file to manage secrets and environment configuration.
+A template.env file is included in the repository – you can copy it and rename it to .env before running the project
+
+- SECRET_KEY – Django secret key
+
+- DEBUG – Set to False in production
+
+- ALLOWED_HOSTS – Your domain or IP
+
+- CSRF_TRUSTED_ORIGINS - ensures Django accepts form submissions from your deployed domains
+
+## Live Demo
+
+Check out the live version here:
+[To do App](https://todonotes-azhygteggrhfcyek.italynorth-01.azurewebsites.net/accounts/login/)
+
 ## License
 
 This project is licensed under the MIT License – see the LICENSE
