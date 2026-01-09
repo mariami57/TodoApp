@@ -130,7 +130,7 @@ If the demo database gets corrupted or reset:
 
 <pre>
  python manage.py migrate
- python manage.py loaddata demo_data.json
+ python manage.py loaddata fixtures/demo_data.json
 </pre>
 
 ## License
