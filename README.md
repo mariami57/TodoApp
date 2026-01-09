@@ -124,6 +124,15 @@ A template.env file is included in the repository – you can copy it and rename
 Check out the live version here:
 [To do App](https://todonotes-azhygteggrhfcyek.italynorth-01.azurewebsites.net/accounts/login/)
 
+
+## Demo reset
+If the demo database gets corrupted or reset:
+
+<pre>
+ python manage.py migrate
+ python manage.py loaddata demo_data.json
+</pre>
+
 ## License
 
 This project is licensed under the MIT License – see the LICENSE
