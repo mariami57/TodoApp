@@ -31,7 +31,8 @@ A simple Django-based ToDo application with user authentication, profile managem
 
 - Frontend: HTML, CSS (Django Templates)
 
-- Database: SQLite (default, but can be switched to PostgreSQL/MySQL)
+- Database: PostgreSQL on Azure  
+    
 
 - Authentication: Django’s built-in user model with custom forms
 
@@ -64,9 +65,42 @@ static/         # Static files (CSS, JS, Images)
 </pre>
 
 ### 4. Apply migrations:
+This app uses PostgreSQL. Depending on where you are running the app, the steps differ slightly:
+a) On Azure (production)
+
+The app automatically uses the DATABASE_URL environment variable set in Azure App Service.
+To apply migrations on the production database, SSH into the App Service or use the Azure Cloud Shell:
 <pre>
-  python manage.py migrate
+python manage.py migrate
 </pre>
+
+Make sure the database connection is working. The container may hang if it cannot reach PostgreSQL.
+
+b) Locally (development)
+
+For local development, it’s recommended to use a local PostgreSQL database rather than the production database.
+
+Example .env or local DATABASE_URL:
+
+<pre>
+DATABASE_URL=postgresql://local_user:local_password@localhost:5432/tododb
+</pre>
+
+Apply migrations to your local database:
+
+<pre>
+python manage.py migrate
+</pre>
+
+This ensures you can test your app without affecting production data.
+
+Notes
+
+Ensure psycopg2-binary is installed both locally and in production.
+
+If you want to test connecting from your local machine to the Azure PostgreSQL, you must allow your local IP in the Azure firewall.
+
+Always restart the app after changing DATABASE_URL or other environment variables.
 
 ### 5. Create a superuser (optional, for admin access):
 <pre>
@@ -102,7 +136,26 @@ Contributions are welcome! To contribute:
 This app is deployed on Azure.
 Here’s an overview of the deployment setup:
 
-○ Database in Production: SQLite
+○ Database in Production: PostgreSQL on Azure
+    1. Connection is configured via the environment variable DATABASE_URL:
+       <pre>
+        postgresql://<DB_USER>:<PASSWORD>@<SERVER_NAME>.postgres.database.azure.com:5432/<DB_NAME>?sslmode=require
+       </pre>
+       Notes:
+        ○ All special characters in the password must be URL-encoded.
+        ○ sslmode=require is mandatory for Azure.
+        ○ Ensure the Azure PostgreSQL server allows access from your App Service (enable "Allow Azure services and resources to access this server") or add firewall rules for your SSH/client IP.
+    2. Dependencies
+       ○ Required packages for PostgreSQL support:
+         psycopg2-binary
+         dj-database-url
+         Installed via requirements.txt.
+    3. Running Migrations
+       Run Django migrations via SSH after verifying database connectivity:
+       <pre>
+          python manage.py migrate
+       </pre>
+       Ensure migrations complete before starting the app to avoid startup timeouts.
 
 ○ Static & Media Files: collected by Django’s collectstatic and served by WhiteNoise
 
@@ -124,14 +177,6 @@ A template.env file is included in the repository – you can copy it and rename
 Check out the live version here:
 [To do App](https://todonotes-azhygteggrhfcyek.italynorth-01.azurewebsites.net/accounts/login/)
 
-
-## Demo reset
-If the demo database gets corrupted or reset:
-
-<pre>
- python manage.py migrate
- python manage.py loaddata fixtures/demo_data.json
-</pre>
 
 ## License
 
