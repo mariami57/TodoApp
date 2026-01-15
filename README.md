@@ -31,7 +31,7 @@ A simple Django-based ToDo application with user authentication, profile managem
 
 - Frontend: HTML, CSS (Django Templates)
 
-- Database: PostgreSQL on Azure  
+- Database: PostgreSQL on Neon  
     
 
 - Authentication: Django’s built-in user model with custom forms
@@ -85,9 +85,17 @@ This app uses PostgreSQL. Depending on where you are running the app, the steps 
 
     This ensures you can test your app without affecting production data.
 
-- Notes
+- Running the app in production (Neon):
+  
+  This project now uses [Neon](https://neon.com/) for hosting PostgreSQL in production. You can get your connection string from the Neon dashboard and add it to your .env:
+  <pre>
+      DATABASE_URL=postgresql://neon_user:neon_password@neon_host:neon_port/neon_db
+  </pre>
 
-    Ensure psycopg2-binary is installed both locally and in production. If you want to test connecting from your local machine to the Azure PostgreSQL, you must allow your local IP in the Azure firewall. Always restart the app after changing DATABASE_URL or other environment variables.
+  Then apply migrations to the Neon database:
+  <pre>
+       python manage.py migrate
+  </pre>
 
 ### 5. Create a superuser (optional, for admin access):
 <pre>
