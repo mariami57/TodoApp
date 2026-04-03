@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavComponent } from "../components/NavComponent"
 import { PendingTaskCard } from "./Tasks/PendingTaskCard"
 import { CompletedTaskCard } from "./Tasks/CompletedTaskCard"
 
@@ -54,6 +55,8 @@ export function Home() {
 
 
     return (
+        <>
+        <NavComponent />
         <div className="content-container">
             <div className="type-tasks">
                 <button onClick={showPendingTasks} id="pending-tasks">Pending tasks</button>
@@ -76,6 +79,8 @@ export function Home() {
                 </div>
             )};
         </div>
+        </>
+        
 
     )
 }

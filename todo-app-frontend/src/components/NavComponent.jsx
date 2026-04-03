@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../base.css"
 
-function NavComponent({ user }) {
+export function NavComponent({ user }) {
     const isAuthenticated = !!user;
 
     const handleLogout = async (e) => {
@@ -17,6 +17,8 @@ function NavComponent({ user }) {
 
         window.location.href = "/login";
     };
+
+
 
     return (
         <>
