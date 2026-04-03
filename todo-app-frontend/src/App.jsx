@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx"
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
+import Login from "./pages/Login.jsx";
+import Profile from "./pages/Profile.jsx";
 import Tasks from "./pages/Tasks/Tasks.jsx";
-import AddTask from "./pages/AddTask";
+import AddTask from "./pages/Tasks/AddTask.jsx";
 import './App.css'
 
 function App() {

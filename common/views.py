@@ -1,29 +1,21 @@
-from django.shortcuts import redirect
-from django.views.generic import ListView
-
+from django.http import JsonResponse
+from django.utils.decorators import method_decorator
 from tasks.models import Task
 
 
 # Create your views here.
-class HomeView(ListView):
-    model = Task
-    template_name = "common/home.html"
+@method_decorator(login_required, name="dispatch")
+class HomeAPI(View):
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect("login")
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         user = self.request.user
-        return Task.objects.filter(user=user)
+        
+        pending_tasks = list(Task.objects.filter(user=user, status="pending").values())
+        completed_tasks = list(Task.objects.filter(user=user, status="completed").values())
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        data = {
+            "pending_tasks": pending_tasks,
+            "completed_tasks": completed_tasks
+        }
 
-        user = self.request.user
-
-        context["pending_tasks"] = Task.objects.filter(user=user, status="pending")
-        context["completed_tasks"] = Task.objects.filter(user=user, status="completed")
-
-        return context
+        return JsonResponse(data)
