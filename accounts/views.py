@@ -10,13 +10,37 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from accounts.forms import ToDoUserCreationForm, CustomLoginForm, ProfileEditForm
 from accounts.models import Profile
 from common.mixins import UserIsCreatorMixin
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 UserModel = get_user_model()
-class RegisterView(CreateView):
-    form_class = ToDoUserCreationForm
-    template_name = "accounts/sign-in.html"
-    success_url = reverse_lazy('home')
+
+@method_decorator(name="dispatch")
+class RegisterAPI(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            if request.content_type == "application/json":
+                data = json.loads(request.body)
+            else:
+                data = request.POST
+        except Exception as e:
+            return JsonResponse({"success": False, "errors": {"__all__": [str(e)]}}, status=400)
+
+        form = ToDoUserCreationForm(data)
+        if form.is_valid():
+            user = form.save()  
+            return JsonResponse({
+                "success": True,
+                "user": {
+                    "username": user.username,
+                    "email": user.email
+                }
+            })
+        else:
+            return JsonResponse({
+                "success": False,
+                "errors": form.errors
+            }, status=400)
     #Uses signal to create a profile for the user
 
 class CustomLoginView(LoginView):

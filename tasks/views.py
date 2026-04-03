@@ -27,9 +27,13 @@ class TaskListView(ListView, LoginRequiredMixin, UserIsCreatorMixin):
 @method_decorator(login_required, name="dispatch")
 class TaskCreateAPI(View):
     def post(self, request, *args, **kwargs):
-        data = request.POST or request.body
-        if request.content_type == "application/json":
-            data = json.loads(request.body)
+        try:
+            data = request.POST or request.body
+            
+            if request.content_type == "application/json":
+                data = json.loads(request.body)
+        except Exception as e:
+            return JsonResponse({"success": False, "errors": {"__all__": [str(e)]}}, status=400)
 
     form = TaskCreateForm(data, user=request.user)
 
@@ -50,6 +54,11 @@ class TaskCreateAPI(View):
                 "canDelete": True,
             }
         })
+    else:
+        return JsonResponse({
+                "success": False,
+                "errors": form.errors
+            }, status=400)
 
 class TaskUpdateView(LoginRequiredMixin, UserIsCreatorMixin, UpdateView):
     model = Task
