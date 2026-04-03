@@ -10,7 +10,8 @@ from django.views.generic import ListView, CreateView, UpdateView
 from common.mixins import UserIsCreatorMixin
 from tasks.forms import TaskCreateForm, TaskUpdateForm
 from tasks.models import Task
-
+from django.utils.decorators import method_decorator
+import json
 
 # Create your views here.
 class TaskListView(ListView, LoginRequiredMixin, UserIsCreatorMixin):
@@ -23,22 +24,32 @@ class TaskListView(ListView, LoginRequiredMixin, UserIsCreatorMixin):
             return Task.objects.all()
         return Task.objects.filter(user=user)
 
+@method_decorator(login_required, name="dispatch")
+class TaskCreateAPI(View):
+    def post(self, request, *args, **kwargs):
+        data = request.POST or request.body
+        if request.content_type == "application/json":
+            data = json.loads(request.body)
 
-class TaskCreateView(CreateView, LoginRequiredMixin, UserIsCreatorMixin):
-    model = Task
-    form_class = TaskCreateForm
-    template_name = "tasks/add-task.html"
-    success_url = reverse_lazy("home")
+    form = TaskCreateForm(data, user=request.user)
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
+    if form.is_valid():
+        task = form.save(commit=False)
+        task.user = request.usertask.save()
+        return JsonResponse({
+            "success":True,
+            "task": {
+                "id": task.id,
+                "name": task.name,
+                "description": task.description,
+                "status":task.status,
+                "created_at":task.created_At.isoformat(),
+                "due_by": task.due_by.isoformat() if task.due_by else None,
+                "accomplished_at":task.accomplished_at.isoformat() if task.accomplished_at else None,
+                "canEdit": True,
+                "canDelete": True,
+            }
+        })
 
 class TaskUpdateView(LoginRequiredMixin, UserIsCreatorMixin, UpdateView):
     model = Task

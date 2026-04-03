@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { PendingTaskCard } from "../Tasks/PendingTaskCard"
-import { CompletedTaskCard } from "../Tasks/CompletedTaskCard"
+import { PendingTaskCard } from "./Tasks/PendingTaskCard"
+import { CompletedTaskCard } from "./Tasks/CompletedTaskCard"
 
 export function Home() {
     const [pendingTasks, setPendingTasks] = useState([]);
@@ -54,35 +54,27 @@ export function Home() {
 
 
     return (
-        <div class="content-container">
-            <div class="type-tasks">
+        <div className="content-container">
+            <div className="type-tasks">
                 <button onClick={showPendingTasks} id="pending-tasks">Pending tasks</button>
                 <button onClick={showCompletedTasks} id="completed-tasks">Completed tasks</button>
             </div>
 
             {activeSection === "pending" && (
-                <div class="tasks-container d-flex justify-content-center gap-3">
+                <div className="tasks-container d-flex justify-content-center gap-3">
                     {pendingTasks.length ? pendingTasks.map(task => (
                         <PendingTaskCard key={task.id} task={task} onComplete={completeTask} />
-                    )) : <h1 class="text-center"> No tasks to show</h1>}
+                    )) : <h1 className="text-center"> No tasks to show</h1>}
                 </div>    
             )}
 
             {activeSection === "completed" && (
-                <div class="tasks-container d-flex justify-content-center gap-3">
-                    {completedTasks.length ? completeTasks.map(task => (
+                <div className="tasks-container d-flex justify-content-center gap-3">
+                    {completedTasks.length ? completedTasks.map(task => (
                         <CompletedTaskCard key={task.id} task={task} />
-                    )) : <h1 class="text-center"> No tasks to show</h1>}
+                    )) : <h1 className="text-center"> No tasks to show</h1>}
                 </div>
             )};
-
-            <div class="tasks-container d-flex justify-content-center gap-3">
-                
-                    {% empty %}
-                    <h1> No tasks to show</h1>
-                    {% endfor %}
-                </div>
-            </div>
         </div>
 
     )
