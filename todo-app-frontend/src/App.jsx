@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Home } from "./pages/Home.jsx"
 import { Login } from "./pages/Login.jsx";
 // import { Profile } from "./pages/Profile.jsx";
@@ -8,6 +9,29 @@ import { Register } from "./pages/Accounts/Register.jsx"
 import './App.css'
 
 function App() {
+
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/user/",{
+      credentials: "include",
+    })
+
+      .then(res => res.json())
+      .then(data => {
+        if (data.authenticated) {
+          setUser(data.user);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
 
   return (
 

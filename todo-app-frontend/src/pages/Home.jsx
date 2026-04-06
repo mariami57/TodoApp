@@ -3,7 +3,7 @@ import { NavComponent } from "../components/NavComponent"
 import { PendingTaskCard } from "./Tasks/PendingTaskCard"
 import { CompletedTaskCard } from "./Tasks/CompletedTaskCard"
 
-export function Home() {
+export function Home({ user }) {
     const [pendingTasks, setPendingTasks] = useState([]);
     const [completedTasks, setCompletedTasks] = useState([]);
     const [activeSection, setActiveSection] = useState("pending");
@@ -56,7 +56,7 @@ export function Home() {
 
     return (
         <>
-        <NavComponent />
+        <NavComponent user={user}/>
         <div className="content-container">
             <div className="type-tasks">
                 <button onClick={showPendingTasks} id="pending-tasks">Pending tasks</button>

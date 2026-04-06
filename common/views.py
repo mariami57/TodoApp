@@ -29,3 +29,17 @@ class HomeAPI(View):
         }
 
         return JsonResponse(data)
+
+
+def current_user(request):
+    if request.user.is_authenticated:
+        return JsonResponse({
+            "authenticated": True,
+            "user":{
+                "id":request.user.id,
+                "username":request.user.username,
+                "email":request.user.email
+            }
+        })
+
+    return JsonResponse({"authenticated": False, "user": None})

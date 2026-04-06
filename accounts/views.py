@@ -73,7 +73,6 @@ class CustomLoginView(View):
                 "success":False,
                 "errors":form.errors
             }, status=400)
-            
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
