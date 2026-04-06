@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom";
+import { useAuth } from "../AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
-export function NavComponent({ user }) {
+export function NavComponent() {
+    const { user, logout} = useAuth();
+    const navigate = useNavigate();
+
+
     const isAuthenticated = !!user;
 
     const handleLogout = async (e) => {
         e.preventDefault();
 
-        await fetch("/logout/", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-            },
-        });
+        await logout();
+        navigate("/login");
 
-        window.location.href = "/login";
+        
     };
 
 
@@ -70,14 +70,6 @@ export function NavComponent({ user }) {
 
     );
 }
-
-function getCSRFToken() {
-    return document.cookie
-        .split("; ")
-        .find(row => row.startsWith("csrftoken"))
-        ?.split("=")[1];
-}
-
 
 
 

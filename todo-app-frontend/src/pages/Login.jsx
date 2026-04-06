@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 import "../forms.css"
 
 
@@ -9,6 +10,8 @@ export function Login() {
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
+
+    const { login } = useAuth();
 
     const API_URL = "http://localhost:8000";
 
@@ -70,6 +73,7 @@ export function Login() {
             const data = await response.json();
 
             if (data.success) {
+                login(data.user);
                 navigate("/");
                 setUsername("");
                 setPassword("");
