@@ -1,21 +1,23 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.views import View
 from django.views.generic import DetailView, UpdateView
 from accounts.forms import ToDoUserCreationForm, CustomLoginForm, ProfileEditForm
 from accounts.models import Profile
 from common.mixins import UserIsCreatorMixin
-from django.utils.decorators import method_decorator
+from django.http import JsonResponse
 
 # Create your views here.
 UserModel = get_user_model()
 
-@method_decorator(name="dispatch")
+
 class RegisterAPI(View):
     def post(self, request, *args, **kwargs):
         try:

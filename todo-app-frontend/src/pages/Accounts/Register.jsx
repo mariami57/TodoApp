@@ -37,6 +37,7 @@ export function Register({ onCreate }) {
                 "Content-Type": "application/json",
                 "X-CSRFToken": getCookie("csrftoken")
             },
+            credentials:"include",
             body: JSON.stringify(userData)
         });
 
@@ -64,7 +65,7 @@ export function Register({ onCreate }) {
             <form onSubmit={handleRegister} className="d-flex flex-column justify-content-center align-items-center">
                 <label>Username</label>
                 <input type="Text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                {errors.username && (<ul classNameName="errorlist d-flex flex-column justify-content-center align-items-center">
+                {errors.username && (<ul className="errorlist d-flex flex-column justify-content-center align-items-center">
                     {errors.username.map((err, idx) => (
                         <li key={idx}>{err}</li>
                     ))}
@@ -73,7 +74,7 @@ export function Register({ onCreate }) {
 
                 <label>Email</label>
                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                {errors.email && (<ul classNameName="errorlist d-flex flex-column justify-content-center align-items-center">
+                {errors.email && (<ul className="errorlist d-flex flex-column justify-content-center align-items-center">
                     {errors.email.map((err, idx) => (
                         <li key={idx}>{err}</li>
                     ))}
