@@ -1,4 +1,4 @@
-import { useAuth } from "../AuthContext";
+import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export function NavComponent() {

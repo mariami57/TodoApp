@@ -14,11 +14,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       {/* <Route path="/profile/:id" element={<Profile />} /> */}
-      <Route path="/tasks" element={
-        <PrivateRoute>
-            <Tasks />
-        </PrivateRoute>
-      }>
+      <Route path="/tasks">
         <Route path="add" element={<AddTask />} />
       </Route> 
 

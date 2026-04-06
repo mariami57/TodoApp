@@ -42,12 +42,14 @@ export function AuthProvider({ children }) {
             return
         }
 
+        return csrfToken;
+
     };
 
 
 
     useEffect(() => {
-        fetch("http://localhost:8000/user/", {
+        fetch(`${API_URL}/user/`, {
             credentials: "include",
         })
 
