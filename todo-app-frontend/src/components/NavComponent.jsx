@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../base.css"
 
 export function NavComponent({ user }) {
     const isAuthenticated = !!user;

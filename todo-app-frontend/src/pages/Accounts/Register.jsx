@@ -8,6 +8,8 @@ export function Register({ onCreate }) {
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
 
+    const API_URL = "http://localhost:8000";
+
 
 
     const getCookie = (name) => {
@@ -29,7 +31,7 @@ export function Register({ onCreate }) {
     const handleRegister = async (e) => {
         e.preventDefault();
         const userData = { username, email, password1, password2 };
-        const response = await fetch("/accounts/register/", {
+        const response = await fetch(`${API_URL}/accounts/register/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -37,6 +39,11 @@ export function Register({ onCreate }) {
             },
             body: JSON.stringify(userData)
         });
+
+        if (!response.ok) {
+            console.error("Request failed:", response.status);
+            return;
+        }
 
         const data = await response.json();
 

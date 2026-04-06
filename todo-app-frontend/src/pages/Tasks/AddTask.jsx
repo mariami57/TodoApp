@@ -7,6 +7,8 @@ export function AddTask({ onCreate }) {
     const [dueBy, setDueBy] = useState("");
     const [errors, setErrors] = useState({});
 
+    const API_URL = "http://localhost:8000";
+
     const getCookie = (name) => {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
@@ -26,7 +28,7 @@ export function AddTask({ onCreate }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const taskData = { name, description, due_by: dueBy };
-        const response = await fetch("/tasks/add/", {
+        const response = await fetch(`${API_URL}/tasks/add/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

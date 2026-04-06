@@ -15,12 +15,12 @@ function App() {
       <Route path="/" element={<Home />} />
       {/* <Route path="/login" element={<Login />} /> */}
       {/* <Route path="/profile/:id" element={<Profile />} /> */}
-      <Route path="/tasks">
-        <Route path="/tasks/add" element={<AddTask />} />
+      <Route path="/tasks/">
+        <Route path="add" element={<AddTask />} />
       </Route> 
 
-      <Route path="/accounts">
-        <Route path="/register" element={<Register />} />
+      <Route path="/accounts/">
+        <Route path="register" element={<Register />} />
       </Route>  
     </Routes>
 
