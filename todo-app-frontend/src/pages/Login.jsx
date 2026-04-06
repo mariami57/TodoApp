@@ -29,5 +29,86 @@ export function Login() {
         return cookieValue;
     };
 
-    
+    const fetchCSRFToken = async () => {
+        await fetch(`${API_URL}/get-csrf/`, {
+            credentials: "include",
+        });
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        await fetchCSRFToken();
+
+        let csrfToken = getCookie("csrftoken");
+        let attempts = 0;
+        while (!csrfToken && attempts < 10) {
+            await new Promise(resolve => setTimeout(resolve, 50));
+            csrfToken = getCookie("csrftoken");
+            attempts++;
+        }
+
+        if (!csrfToken) {
+            console.error("CSRF token not found");
+            setErrors({ __all__: ["Failed to get CSRF token"] });
+            return
+        }
+
+        const loginData = { username, password };
+        const response = await fetch(`${API_URL}/accounts/login/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                X_CSRFToken: csrfToken,
+
+            },
+            credentials: "include",
+            body: JSON.stringify(loginData),
+        });
+
+        try {
+            const data = await response.json();
+
+            if (data.success) {
+                navigate("/");
+                setUsername("");
+                setPassword("");
+                setErrors({});
+            } else {
+                setErrors(data.errors || {});
+            }
+        } catch (e) {
+            console.error("Error parsing response:", e);
+            const text = await response.text();
+            console.error("Response text:", text);
+            setErrors({ __all__: [`Server error: ${response.status} - ${response.statusText}`] });
+        }
+    }
+
+    return (
+        <div class="forms log-in d-flex flex-column gap-2 justify-content-center align-items-center">
+            <h1>Log In</h1>
+            <form onSubmit={handleLogin} class="d-flex flex-column justify-content-center align-items-center">
+                 <label>Username</label>
+                <input type="Text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                {errors.username && (<ul className="errorlist d-flex flex-column justify-content-center align-items-center">
+                    {errors.username.map((err, idx) => (
+                        <li key={idx}>{err}</li>
+                    ))}
+
+                </ul>)}
+
+                <label>Password</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                {errors.password && (
+                    <ul className="errorlist">
+                        {errors.password.map((err, i) => <li key={i}>{err}</li>)}
+                    </ul>
+                )}
+                
+                <button class="form-button">Submit</button>
+            </form>
+            <a href="{% url 'sign-in' %}">Don`t have an account? Click here to sign in</a>
+        </div>
+    )
 }

@@ -19,11 +19,6 @@ from django.utils.decorators import method_decorator
 # Create your views here.
 UserModel = get_user_model()
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class GetCSRFToken(View):
-    def get(self, request, *args, **kwargs):
-        return JsonResponse({"detail": "CSRF cookie set"})
-
 
 class RegisterAPI(View):
     def post(self, request, *args, **kwargs):

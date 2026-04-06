@@ -32,7 +32,7 @@ export function Register() {
     };
 
     const fetchCSRFToken = async () => {
-        await fetch(`${API_URL}/accounts/get-csrf/`, {
+        await fetch(`${API_URL}/get-csrf/`, {
             credentials: "include",
         });
     };

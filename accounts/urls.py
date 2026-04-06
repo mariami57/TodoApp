@@ -1,10 +1,9 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 
-from accounts.views import GetCSRFToken, RegisterAPI, CustomLoginView, ProfileDetailView, profile_delete_view, ProfileUpdateView
+from accounts.views import RegisterAPI, CustomLoginView, ProfileDetailView, profile_delete_view, ProfileUpdateView
 
 urlpatterns = [
-    path("get-csrf/", GetCSRFToken.as_view(), name="get_csrf"),
     path('register/', RegisterAPI.as_view(), name='sign-in'),
     path('login/', CustomLoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
