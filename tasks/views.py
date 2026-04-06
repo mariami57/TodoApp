@@ -5,11 +5,12 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView, CreateView, UpdateView
-
+from django.views.generic import ListView, UpdateView
+from django.views import View
 from common.mixins import UserIsCreatorMixin
 from tasks.forms import TaskCreateForm, TaskUpdateForm
 from tasks.models import Task
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 import json
 
@@ -35,30 +36,30 @@ class TaskCreateAPI(View):
         except Exception as e:
             return JsonResponse({"success": False, "errors": {"__all__": [str(e)]}}, status=400)
 
-    form = TaskCreateForm(data, user=request.user)
+        form = TaskCreateForm(data, user=request.user)
 
-    if form.is_valid():
-        task = form.save(commit=False)
-        task.user = request.usertask.save()
-        return JsonResponse({
-            "success":True,
-            "task": {
-                "id": task.id,
-                "name": task.name,
-                "description": task.description,
-                "status":task.status,
-                "created_at":task.created_At.isoformat(),
-                "due_by": task.due_by.isoformat() if task.due_by else None,
-                "accomplished_at":task.accomplished_at.isoformat() if task.accomplished_at else None,
-                "canEdit": True,
-                "canDelete": True,
-            }
-        })
-    else:
-        return JsonResponse({
-                "success": False,
-                "errors": form.errors
-            }, status=400)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.usertask.save()
+            return JsonResponse({
+                "success":True,
+                "task": {
+                    "id": task.id,
+                    "name": task.name,
+                    "description": task.description,
+                    "status":task.status,
+                    "created_at":task.created_At.isoformat(),
+                    "due_by": task.due_by.isoformat() if task.due_by else None,
+                    "accomplished_at":task.accomplished_at.isoformat() if task.accomplished_at else None,
+                    "canEdit": True,
+                    "canDelete": True,
+                }
+            })
+        else:
+            return JsonResponse({
+                    "success": False,
+                    "errors": form.errors
+                }, status=400)
 
 class TaskUpdateView(LoginRequiredMixin, UserIsCreatorMixin, UpdateView):
     model = Task

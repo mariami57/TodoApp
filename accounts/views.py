@@ -5,8 +5,8 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views import View
+from django.views.generic import DetailView, UpdateView
 from accounts.forms import ToDoUserCreationForm, CustomLoginForm, ProfileEditForm
 from accounts.models import Profile
 from common.mixins import UserIsCreatorMixin
