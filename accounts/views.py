@@ -1,6 +1,6 @@
 import json
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -52,9 +52,34 @@ class RegisterAPI(View):
             }, status=400)
     #Uses signal to create a profile for the user
 
-class CustomLoginView(LoginView):
-    authentication_form = CustomLoginForm
-    template_name = "accounts/login.html"
+class CustomLoginView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            if request.content_type == "application/json":
+                data = json.loads(request.body)
+            else:
+                data = request.POST
+        except Exception as e:
+            return JsonResponse({"success":False, "errors":{"__all__":[str(e)]}}, status=400)
+
+        form = CustomLoginForm(data, request=request)
+
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return JsonResponse({
+                "success":True,
+                "user":{
+                    "username":user.username
+                }
+            })
+        else:
+            return JsonResponse({
+                "success":False,
+                "errors":form.errors
+            }, status=400)
+            
+
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile

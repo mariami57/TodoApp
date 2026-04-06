@@ -16,6 +16,18 @@ class ToDoUserCreationForm(UserCreationForm):
             "password": "Password",
         }
 
+        error_messages = {
+            'username': {
+                'unique': "This username is already taken. Please choose another one.",
+            },
+            'email': {
+                'invalid': "Please enter a valid email address.",
+            },
+            'password2': {
+                'password_mismatch': "The passwords don't match. Please try again.",
+            },
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():

@@ -69,21 +69,22 @@ const handleRegister = async (e) => {
         body: JSON.stringify(userData)
     });
 
-        if (!response.ok) {
-            console.error("Request failed:", response.status);
-            return;
-        }
+        try {
+            const data = await response.json();
 
-        const data = await response.json();
-
-        if (data.success) {
-            navigate("/");
-            setUsername("");
-            setEmail("");
-            setErrors({});
-
-        } else {
-            setErrors(data.errors || {})
+            if (data.success) {
+                navigate("/");
+                setUsername("");
+                setEmail("");
+                setErrors({});
+            } else {
+                setErrors(data.errors || {});
+            }
+        } catch (e) {
+            console.error("Failed to parse response as JSON:", e);
+            const text = await response.text();
+            console.error("Response body:", text.substring(0, 500));
+            setErrors({ __all__: [`Server error: ${response.status} - ${response.statusText}`] });
         }
     }
 
