@@ -4,6 +4,7 @@ import { Home } from "./pages/Home.jsx"
 // import { Profile } from "./pages/Profile.jsx";
 // import { Tasks } from "./pages/Tasks/Tasks.jsx";
 import { AddTask } from "./pages/Tasks/AddTask.jsx";
+import { Register } from "./pages/Accounts/Register.jsx"
 import './App.css'
 
 function App() {
@@ -14,8 +15,13 @@ function App() {
       <Route path="/" element={<Home />} />
       {/* <Route path="/login" element={<Login />} /> */}
       {/* <Route path="/profile/:id" element={<Profile />} /> */}
-      {/* <Route path="/tasks" element={<Tasks />} /> */}
-      <Route path="/tasks/add" element={<AddTask />} />
+      <Route path="/tasks">
+        <Route path="/tasks/add" element={<AddTask />} />
+      </Route> 
+
+      <Route path="/accounts">
+        <Route path="/register" element={<Register />} />
+      </Route>  
     </Routes>
 
   )
