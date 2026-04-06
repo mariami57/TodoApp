@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../forms.css"
 
-export function AddTask({ onCreate }) {
+export function AddTask() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [dueBy, setDueBy] = useState("");
     const [errors, setErrors] = useState({});
+
+
+    const navigate = useNavigate();
 
     const API_URL = "http://localhost:8000";
 
@@ -40,7 +44,7 @@ export function AddTask({ onCreate }) {
         const data = await response.json();
 
         if (data.success) {
-            onCreate(data.task);
+            navigate("/");
             setName("");
             setDescription("");
             setDueBy("");

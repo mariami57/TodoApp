@@ -164,8 +164,13 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ALLOW_ALL_ORIGINS = True  # dev only
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React dev server
+]
+
+CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_NAME = "csrftoken"
+
 # CSRF_COOKIE_DOMAIN = ""  add a frontend domain before production
 CSRF_COOKIE_SECURE = False # set to True before going into production
 SESSION_COOKIE_SECURE = False # set to True before going into production
