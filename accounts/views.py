@@ -57,7 +57,7 @@ class CustomLoginView(View):
         except Exception as e:
             return JsonResponse({"success":False, "errors":{"__all__":[str(e)]}}, status=400)
 
-        form = CustomLoginForm(data, request=request)
+        form = CustomLoginForm(request, data=data)
 
         if form.is_valid():
             user = form.get_user()

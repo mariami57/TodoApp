@@ -5,7 +5,7 @@ from accounts.views import RegisterAPI, CustomLoginView, ProfileDetailView, prof
 
 urlpatterns = [
     path('register/', RegisterAPI.as_view(), name='sign-in'),
-    path('login/', CustomLoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
 
     path('<int:pk>/', include([

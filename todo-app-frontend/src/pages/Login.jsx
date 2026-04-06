@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../../forms.css"
+import { useNavigate, Link } from "react-router-dom";
+import "../forms.css"
 
 
 export function Login() {
@@ -59,7 +59,7 @@ export function Login() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                X_CSRFToken: csrfToken,
+                "X-CSRFToken": csrfToken,
 
             },
             credentials: "include",
@@ -86,12 +86,12 @@ export function Login() {
     }
 
     return (
-        <div class="forms log-in d-flex flex-column gap-2 justify-content-center align-items-center">
+        <div className="forms log-in d-flex flex-column gap-2 justify-content-center align-items-center">
             <h1>Log In</h1>
-            <form onSubmit={handleLogin} class="d-flex flex-column justify-content-center align-items-center">
+            <form onSubmit={handleLogin} className="d-flex flex-column justify-content-center align-items-center">
                  <label>Username</label>
                 <input type="Text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                {errors.username && (<ul className="errorlist d-flex flex-column justify-content-center align-items-center">
+                {errors.username && (<ul classNameName="errorlist d-flex flex-column justify-content-center align-items-center">
                     {errors.username.map((err, idx) => (
                         <li key={idx}>{err}</li>
                     ))}
@@ -101,14 +101,14 @@ export function Login() {
                 <label>Password</label>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 {errors.password && (
-                    <ul className="errorlist">
+                    <ul classNameName="errorlist">
                         {errors.password.map((err, i) => <li key={i}>{err}</li>)}
                     </ul>
                 )}
                 
-                <button class="form-button">Submit</button>
+                <button className="form-button">Submit</button>
             </form>
-            <a href="{% url 'sign-in' %}">Don`t have an account? Click here to sign in</a>
+            <Link to="/accounts/register/">Don`t have an account? Click here to sign in</Link>
         </div>
     )
 }

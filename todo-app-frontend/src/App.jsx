@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home.jsx"
-// import { Login } from "./pages/Login.jsx";
+import { Login } from "./pages/Login.jsx";
 // import { Profile } from "./pages/Profile.jsx";
 // import { Tasks } from "./pages/Tasks/Tasks.jsx";
 import { AddTask } from "./pages/Tasks/AddTask.jsx";
@@ -13,7 +13,6 @@ function App() {
 
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/login" element={<Login />} /> */}
       {/* <Route path="/profile/:id" element={<Profile />} /> */}
       <Route path="/tasks/">
         <Route path="add" element={<AddTask />} />
@@ -21,6 +20,7 @@ function App() {
 
       <Route path="/accounts/">
         <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
       </Route>  
     </Routes>
 
