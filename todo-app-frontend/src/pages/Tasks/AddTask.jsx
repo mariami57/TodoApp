@@ -28,23 +28,48 @@ export function AddTask() {
         return cookieValue;
     };
 
+        const fetchCSRFToken = async () => {
+        await fetch(`${API_URL}/get-csrf/`, {
+            credentials: "include",
+        });
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+         await fetchCSRFToken();
+
+        let csrfToken = getCookie("csrftoken");
+        let attempts = 0;
+        while (!csrfToken && attempts < 10) {
+            await new Promise(resolve => setTimeout(resolve, 50));
+            csrfToken = getCookie("csrftoken");
+            attempts++;
+        }
+
+        if (!csrfToken) {
+            console.error("CSRF token not found");
+            setErrors({ __all__: ["Failed to get CSRF token"] });
+            return
+        }
+
+
         const taskData = { name, description, due_by: dueBy };
         const response = await fetch(`${API_URL}/tasks/add/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": getCookie("csrftoken")
+                "X-CSRFToken": csrfToken
             },
+            credentials: "include",
             body: JSON.stringify(taskData)
         });
 
         const data = await response.json();
 
         if (data.success) {
-            navigate("/");
+            navigate("/", { state: { section: "pending" } });
             setName("");
             setDescription("");
             setDueBy("");
@@ -69,7 +94,7 @@ export function AddTask() {
 
                 </ul>)}
                 <label>Description</label>
-                <input type="text" value={description} onChange={(e) => setName(e.target.value)} />
+                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
 
                 {errors.description && (<ul className="errorlist d-flex flex-column justify-content-center align-items-center">
                     {errors.description.map((err, idx) => (
@@ -82,7 +107,7 @@ export function AddTask() {
                 <label>Due By</label>
                 <input type="date" value={dueBy} onChange={(e) => setDueBy(e.target.value)} />
                 {errors.due_by && (<ul className="errorlist d-flex flex-column justify-content-center align-items-center">
-                    {errors.name.map((err, idx) => (
+                    {errors.due_by.map((err, idx) => (
                         <li key={idx}>{err}</li>
                     ))}
 

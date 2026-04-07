@@ -40,7 +40,9 @@ class TaskCreateAPI(View):
 
         if form.is_valid():
             task = form.save(commit=False)
-            task.user = request.usertask.save()
+            task.user = request.user
+            task.save()
+
             return JsonResponse({
                 "success":True,
                 "task": {
@@ -48,7 +50,7 @@ class TaskCreateAPI(View):
                     "name": task.name,
                     "description": task.description,
                     "status":task.status,
-                    "created_at":task.created_At.isoformat(),
+                    "created_at":task.created_at.isoformat(),
                     "due_by": task.due_by.isoformat() if task.due_by else None,
                     "accomplished_at":task.accomplished_at.isoformat() if task.accomplished_at else None,
                     "canEdit": True,

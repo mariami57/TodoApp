@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { NavComponent } from "../components/NavComponent"
 import { PendingTaskCard } from "./Tasks/PendingTaskCard"
 import { CompletedTaskCard } from "./Tasks/CompletedTaskCard"
@@ -8,20 +9,27 @@ export function Home({ user }) {
     const [completedTasks, setCompletedTasks] = useState([]);
     const [activeSection, setActiveSection] = useState("pending");
 
+    const location = useLocation();
+    const API_URL = "http://localhost:8000";
+
     useEffect(() => {
-        fetch("/api/home")
+        fetch(`${API_URL}`, {
+            credentials: "include"
+        })
             .then(res => res.json())
             .then(data => {
+                console.log(data); // 👈 ADD THIS
                 setPendingTasks(data.pending_tasks);
                 setCompletedTasks(data.completed_tasks);
             });
-    }, [])
+    }, [location]);
+
 
     const showPendingTasks = () => setActiveSection("pending");
     const showCompletedTasks = () => setActiveSection("completed");
 
     const completeTask = (taskId) => {
-        const url = `/api/complete-task/${taskId}/`; // adjust if your API differs
+        const url = `/api/complete-task/${taskId}/`;
         fetch(url, {
             method: "POST",
             headers: {
@@ -56,31 +64,31 @@ export function Home({ user }) {
 
     return (
         <>
-        <NavComponent user={user}/>
-        <div className="content-container">
-            <div className="type-tasks">
-                <button onClick={showPendingTasks} id="pending-tasks">Pending tasks</button>
-                <button onClick={showCompletedTasks} id="completed-tasks">Completed tasks</button>
-            </div>
-
-            {activeSection === "pending" && (
-                <div className="tasks-container d-flex justify-content-center gap-3">
-                    {pendingTasks.length ? pendingTasks.map(task => (
-                        <PendingTaskCard key={task.id} task={task} onComplete={completeTask} />
-                    )) : <h1 className="text-center"> No tasks to show</h1>}
-                </div>    
-            )}
-
-            {activeSection === "completed" && (
-                <div className="tasks-container d-flex justify-content-center gap-3">
-                    {completedTasks.length ? completedTasks.map(task => (
-                        <CompletedTaskCard key={task.id} task={task} />
-                    )) : <h1 className="text-center"> No tasks to show</h1>}
+            <NavComponent user={user} />
+            <div className="content-container">
+                <div className="type-tasks">
+                    <button onClick={showPendingTasks} id="pending-tasks">Pending tasks</button>
+                    <button onClick={showCompletedTasks} id="completed-tasks">Completed tasks</button>
                 </div>
-            )};
-        </div>
+
+                {activeSection === "pending" && (
+                    <div className="tasks-container d-flex justify-content-center gap-3">
+                        {pendingTasks.length ? pendingTasks.map(task => (
+                            <PendingTaskCard key={task.id} task={task} onComplete={completeTask} />
+                        )) : <h1 className="text-center"> No tasks to show</h1>}
+                    </div>
+                )}
+
+                {activeSection === "completed" && (
+                    <div className="tasks-container d-flex justify-content-center gap-3">
+                        {completedTasks.length ? completedTasks.map(task => (
+                            <CompletedTaskCard key={task.id} task={task} />
+                        )) : <h1 className="text-center"> No tasks to show</h1>}
+                    </div>
+                )}
+            </div>
         </>
-        
+
 
     )
 }
