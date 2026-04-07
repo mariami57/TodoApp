@@ -13,7 +13,7 @@ export function PendingTaskCard({task, onComplete}) {
 
 
     return (
-        <div className="task-card d-flex" id="task-{{ task.pk }}" onClick={e => e.currentTarget.classNameList.toggle("flipped")}>
+        <div className="task-card d-flex" id="task-{{ task.pk }}" onClick={e => e.currentTarget.classList.toggle("flipped")}>
             <div className="task-card-inner">
                 <div className="task-card-front">
                     <div className="menu-container">

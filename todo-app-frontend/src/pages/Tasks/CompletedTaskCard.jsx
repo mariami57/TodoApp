@@ -4,7 +4,7 @@ export function CompletedTaskCard({ task }) {
     return (
         <div id="completed-tasks-section">
             
-            <div className="task-card d-flex" onclick="this.classNameList.toggle('flipped')">
+            <div className="task-card d-flex" onClick={e => e.currentTarget.classList.toggle("flipped")}>
                 <div className="task-card-inner">
                     <div className="task-card-front">
                         <div className="menu-container">

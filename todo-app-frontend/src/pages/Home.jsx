@@ -47,7 +47,9 @@ export function Home({ user }) {
     };
 
 
-    fetchCSRFToken();
+    useEffect(() => {
+        fetchCSRFToken();
+    }, []);
 
     useEffect(() => {
         fetch(`${API_URL}`, {
@@ -68,7 +70,7 @@ export function Home({ user }) {
 
 
     const completeTask = (taskId) => {
-        const url = `${API_URL}/${taskId}/complete.ajax/`;
+        const url = `${API_URL}/tasks/${taskId}/complete.ajax/`;
         fetch(url, {
             method: "POST",
             headers: {
