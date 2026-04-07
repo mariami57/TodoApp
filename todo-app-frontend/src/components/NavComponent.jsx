@@ -2,19 +2,71 @@ import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export function NavComponent() {
-    const { user, logout} = useAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
 
 
     const isAuthenticated = !!user;
 
-    const handleLogout = async (e) => {
-        e.preventDefault();
+    const API_URL = "http://localhost:8000";
 
-        await logout();
-        navigate("/login");
+    const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break
+                }
 
-        
+            }
+        }
+
+        return cookieValue;
+    };
+
+    const fetchCSRFToken = async () => {
+        await fetch(`${API_URL}/get-csrf/`, {
+            credentials: "include",
+        });
+    };
+
+    const handleLogout = async () => {
+        await fetchCSRFToken();
+
+        let csrfToken = getCookie("csrftoken");
+        let attempts = 0;
+        while (!csrfToken && attempts < 10) {
+            await new Promise(resolve => setTimeout(resolve, 50));
+            csrfToken = getCookie("csrftoken");
+            attempts++;
+        }
+
+        if (!csrfToken) {
+            console.error("CSRF token not found");
+            return
+        }
+        fetch(`${API_URL}/accounts/logout/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            credentials: "include",
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Logout failed");
+                return res.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    logout(); 
+                    navigate("/accounts/login");
+                }
+            })
+
+
     };
 
 
@@ -62,7 +114,7 @@ export function NavComponent() {
                                 <span className="tooltip-text">Log Out</span>
                             </Link>
                         </div>
-                    
+
                     </>
                 )}
             </nav>

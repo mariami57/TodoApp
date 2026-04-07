@@ -1,12 +1,10 @@
-from django.contrib.auth.views import LogoutView
 from django.urls import path, include
-
-from accounts.views import RegisterAPI, CustomLoginView, ProfileDetailView, profile_delete_view, ProfileUpdateView
+from accounts.views import RegisterAPI, CustomLoginView, ProfileDetailView, logout_api, profile_delete_view, ProfileUpdateView
 
 urlpatterns = [
     path('register/', RegisterAPI.as_view(), name='sign-in'),
     path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', logout_api, name='logout'),
 
     path('<int:pk>/', include([
        path('details/', ProfileDetailView.as_view(), name='profile-details'),

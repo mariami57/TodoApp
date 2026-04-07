@@ -1,9 +1,8 @@
 import json
 
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -13,8 +12,7 @@ from accounts.forms import ToDoUserCreationForm, CustomLoginForm, ProfileEditFor
 from accounts.models import Profile
 from common.mixins import UserIsCreatorMixin
 from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 UserModel = get_user_model()
@@ -101,3 +99,8 @@ def profile_delete_view(request, pk):
         else:
             return HttpResponseForbidden("You are not allowed to delete this profile")
 
+@login_required
+@require_POST
+def logout_api(request):
+    logout(request)
+    return JsonResponse({"success": True})

@@ -73,7 +73,7 @@ export function AuthProvider({ children }) {
 
     const logout = async () => {
         const csrfToken = await fetchCSRFToken();
-        await fetch(`${API_URL}/logout/`, {
+        await fetch(`${API_URL}/accounts/logout/`, {
             method: "POST",
             credentials: "include",
             headers: {
