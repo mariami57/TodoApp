@@ -98,8 +98,15 @@ def complete_task_ajax(request, pk):
         task.save()
         return JsonResponse({
             "success": True,
-            "task_id": pk,
-            "accomplished_at": task.accomplished_at.strftime("%Y-%m-%d %H:%M"),
-        })
+            "task": {
+                "id": task.id,
+                "name": task.name,
+                "description": task.description,
+                "status": task.status,
+                "created_at": task.created_at.isoformat(),
+                "due_by": task.due_by.isoformat() if task.due_by else None,
+                "accomplished_at": task.accomplished_at.isoformat(),
+            }
+})
     except Task.DoesNotExist:
         return JsonResponse({"success": False, "error": "Task not found"}, status=404)

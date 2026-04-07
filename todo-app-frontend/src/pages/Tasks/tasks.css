@@ -241,3 +241,14 @@ summary::before {
     visibility: visible;
     opacity: 1;
 }
+
+#pending-tasks, #completed-tasks {
+  background-color: transparent;
+  border: none;
+  margin: 20px;
+}
+
+
+#pending-tasks:hover, #completed-tasks:hover {
+  color: rgb(14, 165, 160);
+}

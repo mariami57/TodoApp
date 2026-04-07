@@ -12,40 +12,6 @@ export function Home({ user }) {
     const location = useLocation();
     const API_URL = "http://localhost:8000";
 
-    useEffect(() => {
-        fetch(`${API_URL}`, {
-            credentials: "include"
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data); // 👈 ADD THIS
-                setPendingTasks(data.pending_tasks);
-                setCompletedTasks(data.completed_tasks);
-            });
-    }, [location]);
-
-
-    const showPendingTasks = () => setActiveSection("pending");
-    const showCompletedTasks = () => setActiveSection("completed");
-
-    const completeTask = (taskId) => {
-        const url = `/api/complete-task/${taskId}/`;
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken"),
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    setPendingTasks(prev => prev.filter(t => t.id !== taskId));
-                    setCompletedTasks(prev => [...prev, data.task]);
-                }
-            });
-    };
-
     const getCookie = (name) => {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
@@ -60,6 +26,67 @@ export function Home({ user }) {
         }
         return cookieValue;
     };
+
+    const fetchCSRFToken = async () => {
+
+        let csrfToken = getCookie("csrftoken");
+        let attempts = 0;
+        while (!csrfToken && attempts < 10) {
+            await new Promise(resolve => setTimeout(resolve, 50));
+            csrfToken = getCookie("csrftoken");
+            attempts++;
+        }
+
+        if (!csrfToken) {
+            console.error("CSRF token not found");
+            return
+        }
+        await fetch(`${API_URL}/get-csrf/`, {
+            credentials: "include",
+        });
+    };
+
+
+    fetchCSRFToken();
+
+    useEffect(() => {
+        fetch(`${API_URL}`, {
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setPendingTasks(data.pending_tasks);
+                setCompletedTasks(data.completed_tasks);
+            });
+    }, [location]);
+
+
+    const showPendingTasks = () => setActiveSection("pending");
+    const showCompletedTasks = () => setActiveSection("completed");
+
+
+
+    const completeTask = (taskId) => {
+        const url = `${API_URL}/${taskId}/complete.ajax/`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setPendingTasks(prev => prev.filter(t => t.id !== taskId));
+                    setCompletedTasks(prev => [...prev, data.task]);
+                }
+            });
+    };
+
+
 
 
     return (

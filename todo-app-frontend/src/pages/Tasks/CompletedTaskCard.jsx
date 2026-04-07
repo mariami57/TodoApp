@@ -16,9 +16,9 @@ export function CompletedTaskCard({ task }) {
                             </details>
                         </div>
                         <h3>{ task.name }</h3>
-                        <p className="date">Created at: { task.created_at }</p>
+                        <p className="date">Created at: { task.created_at.split("T")[0] }</p>
                         <p className="status">Status: { task.status }</p>
-                        <p className="date">Completed at: { task.accomplished_at }</p>
+                        <p className="date">Completed at: { task.accomplished_at.split("T")[0] }</p>
                     </div>
                     <div className="task-card-back">
                         <p className="desc">{ task.description }</p>

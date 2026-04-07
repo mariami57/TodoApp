@@ -28,7 +28,7 @@ export function PendingTaskCard({task, onComplete}) {
                     <h3>{task.name}</h3>
                     <p className="date">Created at: {task.created_at }</p>
                     <p className="status">Status: {task.status}</p>
-                    {task.due_by && <p className="due-date" style={{ color:dueColor()}}>Due by: {task.due_by}</p>}
+                    {task.due_by && <p className="due-date" style={{ color:dueColor()}}>Due by: {task.due_by.split("T")[0]}</p>}
                     <div className="tooltip-container">
                         <button type="button" className="complete-btn" data-task-id="{{ task.pk }}" onClick={() => onComplete(task.id)}>
                             <i className="fa-solid fa-circle-check"></i>
